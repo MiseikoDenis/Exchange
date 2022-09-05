@@ -1,15 +1,12 @@
-package com.example.exchange.presentation
+package com.example.exchange.presentation.start
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.exchange.CurrencyApi
+import androidx.fragment.app.viewModels
 import com.example.exchange.databinding.FragmentStartBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class StartFragment : Fragment() {
 
@@ -19,27 +16,23 @@ class StartFragment : Fragment() {
             "View was destroyed"
         }
 
+    private val viewModel: StartViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        //Подписался на изменения во viewmodel
+        viewModel.currenciesList.observe(viewLifecycleOwner) { currency ->
+            binding.test.text =
+                currency.toString()
+        }
+
         return FragmentStartBinding.inflate(inflater, container, false)
             .also { binding ->
                 _binding = binding
             }
             .root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        setText()
-    }
-
-    private fun setText() {
-        CoroutineScope(Dispatchers.IO).launch {
-            binding.test.text = CurrencyApi.retrofitService.getProperties().toString()
-        }
     }
 }

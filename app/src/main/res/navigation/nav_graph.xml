@@ -9,5 +9,14 @@
         android:id="@+id/startFragment"
         android:name="com.example.exchange.presentation.start.StartFragment"
         android:label="fragment_start"
-        tools:layout="@layout/fragment_start" />
+        tools:layout="@layout/fragment_start" >
+        <action
+            android:id="@+id/action_startFragment_to_currenciesFragment"
+            app:destination="@id/currenciesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/currenciesFragment"
+        android:name="com.example.exchange.presentation.currencies.CurrenciesFragment"
+        android:label="fragment_currencies"
+        tools:layout="@layout/fragment_currencies" />
 </navigation>

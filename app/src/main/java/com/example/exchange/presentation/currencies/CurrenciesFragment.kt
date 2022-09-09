@@ -1,4 +1,4 @@
-package com.example.exchange.presentation.start
+package com.example.exchange.presentation.currencies
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,26 +6,26 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.example.exchange.R
-import com.example.exchange.databinding.FragmentStartBinding
+import com.example.exchange.databinding.FragmentCurrenciesBinding
 
-class StartFragment : Fragment() {
+class CurrenciesFragment : Fragment(R.layout.fragment_currencies) {
 
-    private var _binding: FragmentStartBinding? = null
+    private var _binding: FragmentCurrenciesBinding? = null
     private val binding
         get() = requireNotNull(_binding) {
             "View was destroyed"
         }
 
-    private val viewModel: StartViewModel by viewModels()
+    private val viewModel: CurrenciesViewModel by viewModels()
+
+    val adapter by lazy { CurrencyAdapter() }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return FragmentStartBinding.inflate(inflater, container, false)
+        return FragmentCurrenciesBinding.inflate(inflater, container, false)
             .also { binding ->
                 _binding = binding
             }
@@ -35,8 +35,11 @@ class StartFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.button.setOnClickListener {
-            findNavController().navigate(R.id.action_startFragment_to_currenciesFragment)
+        binding.currencyList.adapter = adapter
+
+        viewModel.currenciesList.observe(viewLifecycleOwner) { list ->
+            adapter.submitItem(list)
         }
+
     }
 }

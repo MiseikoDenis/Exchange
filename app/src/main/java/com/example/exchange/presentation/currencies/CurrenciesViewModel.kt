@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.exchange.data.api.CurrencyApi
-import com.example.exchange.domain.entity.Currency
+import com.example.exchange.api.CurrencyApi
+import com.example.exchange.api.NetworkCurrency
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 
@@ -14,8 +14,8 @@ import java.time.LocalDateTime
 class CurrenciesViewModel : ViewModel() {
 
 
-    private val _currenciesList = MutableLiveData<List<Currency>>()
-    val currenciesList: LiveData<List<Currency>>
+    private val _currenciesList = MutableLiveData<List<NetworkCurrency>>()
+    val currenciesList: LiveData<List<NetworkCurrency>>
         get() = _currenciesList
 
     init {

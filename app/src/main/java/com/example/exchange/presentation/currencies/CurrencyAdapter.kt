@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.exchange.R
-import com.example.exchange.domain.entity.Currency
+import com.example.exchange.api.NetworkCurrency
 
 
 class CurrencyAdapter : RecyclerView.Adapter<CurrencyAdapter.ViewHolder>() {
 
-    private var items: List<Currency> = emptyList()
+    private var items: List<NetworkCurrency> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
@@ -26,7 +26,7 @@ class CurrencyAdapter : RecyclerView.Adapter<CurrencyAdapter.ViewHolder>() {
     override fun getItemCount(): Int = items.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun submitItem(listItem: List<Currency>) {
+    fun submitItem(listItem: List<NetworkCurrency>) {
         items = listItem
         notifyDataSetChanged()
     }
@@ -42,7 +42,7 @@ class CurrencyAdapter : RecyclerView.Adapter<CurrencyAdapter.ViewHolder>() {
             }
         }
 
-        fun bind(currency: Currency) {
+        fun bind(currency: NetworkCurrency) {
             val name: TextView = itemView.findViewById(R.id.currency_name)
             name.text = currency.name
         }

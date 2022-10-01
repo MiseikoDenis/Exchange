@@ -1,4 +1,4 @@
-package com.example.exchange.data.api
+package com.example.exchange.api
 
 import com.example.exchange.util.Constants.Companion.BASE_URL
 import com.squareup.moshi.Moshi

@@ -5,5 +5,5 @@ import retrofit2.http.GET
 interface CurrencyApiService {
 
     @GET("currencies")
-    suspend fun getCurrenciesList(): NetworkCurrencyContainer
+    suspend fun getCurrenciesList(): List<NetworkCurrency>
 }

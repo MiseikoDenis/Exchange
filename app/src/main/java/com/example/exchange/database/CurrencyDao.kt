@@ -10,7 +10,7 @@ interface CurrencyDao {
     fun getCurrencies(): LiveData<List<DatabaseCurrency>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertCurrency(currencies: List<DatabaseCurrency>)
+    fun insertCurrencies(currencies: List<DatabaseCurrency>)
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     fun updateCurrency(currency: DatabaseCurrency)

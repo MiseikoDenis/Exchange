@@ -12,9 +12,10 @@ import kotlinx.coroutines.withContext
 
 class CurrenciesRepository(private val database: CurrencyDatabase) {
 
-    val currencies: LiveData<List<Currency>> = Transformations.map(database.currencyDao.getCurrencies()) {
-        it.asDomainModel()
-    }
+    val currencies: LiveData<List<Currency>> =
+        Transformations.map(database.currencyDao.getCurrencies()) {
+            it.asDomainModel()
+        }
 
     suspend fun refreshCurrencies() {
         withContext(Dispatchers.IO) {
@@ -26,7 +27,7 @@ class CurrenciesRepository(private val database: CurrencyDatabase) {
                     dateEnd = it.dateEnd
                 )
             }
-            database.currencyDao.insertCurrency(databaseList)
+            database.currencyDao.insertCurrencies(databaseList)
         }
     }
 }

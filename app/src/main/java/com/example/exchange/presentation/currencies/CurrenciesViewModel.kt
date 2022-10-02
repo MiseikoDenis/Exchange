@@ -46,7 +46,6 @@ class CurrenciesViewModel(application: Application) : ViewModel() {
                 _isNetworkErrorShown.value = false
 
             } catch (networkError: IOException) {
-                // Show a Toast error message and hide the progress bar.
                 if(currenciesList.value.isNullOrEmpty())
                     _eventNetworkError.value = true
             }

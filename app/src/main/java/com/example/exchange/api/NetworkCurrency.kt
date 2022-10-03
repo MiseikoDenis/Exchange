@@ -1,8 +1,6 @@
 package com.example.exchange.api
 
-import com.example.exchange.database.DatabaseCurrency
 import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
 
 
 data class NetworkCurrency(

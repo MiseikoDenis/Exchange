@@ -11,7 +11,7 @@ import java.time.LocalDateTime
 
 class CurrenciesViewModel(application: Application) : ViewModel() {
 
-    private val currenciesRepository = CurrenciesRepository(getDatabase(application))
+    private val currenciesRepository = CurrenciesRepository(application)
 
     val currenciesList = currenciesRepository.currencies
 

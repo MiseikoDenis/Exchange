@@ -7,13 +7,13 @@ import com.example.exchange.models.Currency
 
 
 @Entity(tableName = "currencies")
-data class DatabaseCurrency(
+data class CurrencyDatabaseEntity(
     @PrimaryKey val id: Int,
     val name: String,
     @ColumnInfo(name = "date_end") val dateEnd: String,
 )
 
-fun List<DatabaseCurrency>.asDomainModel(): List<Currency> {
+fun List<CurrencyDatabaseEntity>.asDomainModel(): List<Currency> {
     return map {
         Currency(
             id = it.id,

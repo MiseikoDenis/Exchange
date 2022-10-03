@@ -7,11 +7,11 @@ import androidx.room.*
 @Dao
 interface CurrencyDao {
     @Query("SELECT * FROM currencies")
-    fun getCurrencies(): LiveData<List<DatabaseCurrency>>
+    fun getCurrencies(): LiveData<List<CurrencyDatabaseEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertCurrencies(currencies: List<DatabaseCurrency>)
+    fun insertCurrency(currencies: List<CurrencyDatabaseEntity>)
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    fun updateCurrency(currency: DatabaseCurrency)
+    fun updateCurrency(currency: CurrencyDatabaseEntity)
 }

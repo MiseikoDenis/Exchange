@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.exchange.R
-import com.example.exchange.databinding.FragmentCurrenciesBinding
 import com.example.exchange.databinding.FragmentStartBinding
 
 class StartFragment : Fragment() {

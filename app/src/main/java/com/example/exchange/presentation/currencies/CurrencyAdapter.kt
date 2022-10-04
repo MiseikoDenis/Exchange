@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.exchange.R
-import com.example.exchange.api.NetworkCurrency
 import com.example.exchange.models.Currency
 
 

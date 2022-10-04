@@ -4,7 +4,6 @@ import android.app.Application
 import android.content.Context
 import com.example.exchange.AppComponent
 import com.example.exchange.DaggerAppComponent
-import com.example.exchange.util.di.RepositoryModule
 import com.example.exchange.util.di.RoomModule
 
 class ExchangeApp : Application() {

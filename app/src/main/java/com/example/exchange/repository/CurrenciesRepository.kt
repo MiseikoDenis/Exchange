@@ -9,9 +9,10 @@ import com.example.exchange.database.asDomainModel
 import com.example.exchange.models.Currency
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 
-class CurrenciesRepository(
+class CurrenciesRepository @Inject constructor(
     val database: CurrencyDatabase,
     private val retrofitService: CurrencyApiService
 ) {

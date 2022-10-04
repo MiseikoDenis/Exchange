@@ -1,20 +1,20 @@
 package com.example.exchange.repository
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import com.example.exchange.api.CurrencyApi
+import com.example.exchange.api.CurrencyApiService
 import com.example.exchange.database.CurrencyDatabase
 import com.example.exchange.database.CurrencyDatabaseEntity
 import com.example.exchange.database.asDomainModel
-import com.example.exchange.database.getDatabase
 import com.example.exchange.models.Currency
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class CurrenciesRepository(application: Application) {
 
-    private val database: CurrencyDatabase = getDatabase(application)
+class CurrenciesRepository(
+    val database: CurrencyDatabase,
+    private val retrofitService: CurrencyApiService
+) {
 
     val currencies: LiveData<List<Currency>> =
         Transformations.map(database.currencyDao.getCurrencies()) {
@@ -23,7 +23,7 @@ class CurrenciesRepository(application: Application) {
 
     suspend fun refreshCurrencies() {
         withContext(Dispatchers.IO) {
-            val currenciesList = CurrencyApi.retrofitService.getCurrenciesList()
+            val currenciesList = retrofitService.getCurrenciesList()
             val databaseList = currenciesList.map {
                 CurrencyDatabaseEntity(
                     id = it.id,

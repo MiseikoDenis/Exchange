@@ -2,18 +2,21 @@ package com.example.exchange.presentation.currencies
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.example.exchange.database.getDatabase
+import com.example.exchange.models.Currency
+import com.example.exchange.presentation.appComponent
 import com.example.exchange.repository.CurrenciesRepository
 import kotlinx.coroutines.launch
 import java.io.IOException
-import java.time.LocalDateTime
+import javax.inject.Inject
 
 
 class CurrenciesViewModel(application: Application) : ViewModel() {
 
-    private val currenciesRepository = CurrenciesRepository(application)
+    @Inject
+    lateinit var currenciesRepository: CurrenciesRepository
 
-    val currenciesList = currenciesRepository.currencies
+    @Inject
+    lateinit var currenciesList: LiveData<List<Currency>>
 
     private var _eventNetworkError = MutableLiveData<Boolean>(false)
     val eventNetworkError: LiveData<Boolean>
@@ -24,6 +27,7 @@ class CurrenciesViewModel(application: Application) : ViewModel() {
         get() = _isNetworkErrorShown
 
     init {
+        application.appComponent.inject(this)
         refreshCurrencyList()
     }
 

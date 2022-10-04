@@ -23,9 +23,9 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideCurrencyApiService(): CurrencyApiService {
+    fun provideCurrencyApiService(moshi: Moshi): CurrencyApiService {
         return Retrofit.Builder()
-            .addConverterFactory(MoshiConverterFactory.create(provideMoshi()))
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
             .baseUrl(Constants.BASE_URL)
             .build()
             .create(CurrencyApiService::class.java)

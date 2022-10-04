@@ -32,9 +32,6 @@ class StartFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.button.setOnClickListener {
-            findNavController().navigate(R.id.action_startFragment_to_currenciesFragment)
-        }
     }
 
     override fun onDestroyView() {

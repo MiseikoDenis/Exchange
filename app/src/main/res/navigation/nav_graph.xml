@@ -9,14 +9,25 @@
         android:id="@+id/startFragment"
         android:name="com.example.exchange.presentation.start.StartFragment"
         android:label="fragment_start"
-        tools:layout="@layout/fragment_start" >
-        <action
-            android:id="@+id/action_startFragment_to_currenciesFragment"
-            app:destination="@id/currenciesFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_start" />
     <fragment
         android:id="@+id/currenciesFragment"
         android:name="com.example.exchange.presentation.currencies.CurrenciesFragment"
         android:label="fragment_currencies"
         tools:layout="@layout/fragment_currencies" />
+    <fragment
+        android:id="@+id/thirdFragment"
+        android:name="com.example.exchange.presentation.third.ThirdFragment"
+        android:label="fragment_third"
+        tools:layout="@layout/fragment_third" />
+    <fragment
+        android:id="@+id/fourthFragment"
+        android:name="com.example.exchange.presentation.fourth.FourthFragment"
+        android:label="fragment_fourth"
+        tools:layout="@layout/fragment_fourth" />
+    <fragment
+        android:id="@+id/fifthFragment"
+        android:name="com.example.exchange.presentation.fifth.FifthFragment"
+        android:label="fragment_fifth"
+        tools:layout="@layout/fragment_fifth" />
 </navigation>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/startFragment"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="Первый" />
+
+    <item
+        android:id="@+id/currenciesFragment"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="Второй" />
+
+    <item
+        android:id="@+id/thirdFragment"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="Третий" />
+
+    <item
+        android:id="@+id/fourthFragment"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="Четвертый" />
+
+    <item
+        android:id="@+id/fifthFragment"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="Пятый" />
+
+</menu>

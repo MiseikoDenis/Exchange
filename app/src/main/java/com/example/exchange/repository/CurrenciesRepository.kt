@@ -34,6 +34,7 @@ class CurrenciesRepository @Inject constructor(
                 CurrencyDatabaseEntity(
                     id = it.id,
                     name = it.name,
+                    abbreviation = it.abbreviation,
                     dateEnd = it.dateEnd,
                     rate = retrofitService.getExchangeRate(it.id).rate,
                 )

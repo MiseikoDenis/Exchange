@@ -4,10 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import com.example.exchange.R
 import com.example.exchange.databinding.FragmentStartBinding
 
 class StartFragment : Fragment() {
@@ -26,12 +25,12 @@ class StartFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentStartBinding.inflate(inflater, container, false)
+
+        val list = listOf("one")
+
+        binding.spinnerFirst.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, list)
+
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
     }
 
     override fun onDestroyView() {

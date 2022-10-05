@@ -8,6 +8,8 @@ data class NetworkCurrency(
     val id: Int,
     @Json(name = "Cur_Name")
     val name: String,
+    @Json(name = "Cur_Abbreviation")
+    val abbreviation: String,
     @Json(name = "Cur_DateEnd")
     val dateEnd: String,
 )

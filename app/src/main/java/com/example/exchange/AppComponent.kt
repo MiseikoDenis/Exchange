@@ -1,6 +1,7 @@
 package com.example.exchange
 
 import com.example.exchange.presentation.currencies.CurrenciesViewModel
+import com.example.exchange.presentation.start.StartViewModel
 import com.example.exchange.repository.CurrenciesRepository
 import com.example.exchange.util.di.RepositoryModule
 import dagger.Component
@@ -12,4 +13,5 @@ interface AppComponent {
 
     fun inject(target: CurrenciesRepository)
     fun inject(target: CurrenciesViewModel)
+    fun inject(target: StartViewModel)
 }

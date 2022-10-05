@@ -40,15 +40,11 @@ class CurrenciesFragment : Fragment(R.layout.fragment_currencies) {
             if (isNetworkError) onNetworkError()
         }
 
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
         viewModel.currenciesList.observe(viewLifecycleOwner) { list ->
             adapter.submitItem(list)
         }
+
+        return binding.root
     }
 
     private fun onNetworkError() {

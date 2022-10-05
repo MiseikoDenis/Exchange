@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import com.example.exchange.R
+import androidx.lifecycle.ViewModelProvider
 import com.example.exchange.databinding.FragmentStartBinding
+import com.example.exchange.presentation.currencies.CurrenciesViewModel
+import java.util.Currency
 
 class StartFragment : Fragment() {
 
@@ -18,7 +20,13 @@ class StartFragment : Fragment() {
             "View was destroyed"
         }
 
-    private val viewModel: StartViewModel by viewModels()
+    private val viewModel: StartViewModel by lazy {
+        val activity = requireNotNull(this.activity) {
+            "You can only access the viewModel after onActivityCreated()"
+        }
+        ViewModelProvider(this, StartViewModel.Factory(activity.application))
+            .get(StartViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,12 +34,13 @@ class StartFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentStartBinding.inflate(inflater, container, false)
+
+        viewModel.listAbbreviation.observe(viewLifecycleOwner) { list ->
+            binding.spinnerFirst.adapter =
+                ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, list)
+        }
+
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
     }
 
     override fun onDestroyView() {

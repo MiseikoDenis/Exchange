@@ -12,6 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.LocalDateTime
 import javax.inject.Inject
+import kotlin.coroutines.coroutineContext
 
 
 class CurrenciesRepository @Inject constructor(
@@ -24,6 +25,14 @@ class CurrenciesRepository @Inject constructor(
             it.asDomainModel().sortedBy { currency -> currency.name }
         }
 
+    val abreviatures: LiveData<List<String>> =
+        Transformations.map(currencies){
+            it.map { it.abbreviation }
+        }
+
+//    fun getAbbreviations(): List<String>? {
+//        return currencies.value?.map { it.abbreviation }
+//    }
 
     @SuppressLint("NewApi")
     suspend fun refreshCurrencies() {
@@ -34,6 +43,7 @@ class CurrenciesRepository @Inject constructor(
                 CurrencyDatabaseEntity(
                     id = it.id,
                     name = it.name,
+                    abbreviation = it.abbreviation,
                     dateEnd = it.dateEnd,
                     rate = retrofitService.getExchangeRate(it.id).rate,
                 )

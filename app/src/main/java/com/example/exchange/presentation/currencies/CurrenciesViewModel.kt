@@ -31,17 +31,6 @@ class CurrenciesViewModel(application: Application) : ViewModel() {
         refreshCurrencyList()
     }
 
-//    @SuppressLint("NewApi")
-//    private fun refreshCurrencyList() {
-//        viewModelScope.launch {
-//            _currenciesList.value = CurrencyApi.retrofitService.getCurrenciesList()
-//                .toMutableList()
-//                .filter { LocalDateTime.parse(it.dateEnd) > LocalDateTime.now() }
-//                .toList()
-//                .sortedBy { it.name }
-//        }
-//    }
-
     private fun refreshCurrencyList(){
         viewModelScope.launch {
             try {

@@ -11,6 +11,7 @@ data class CurrencyDatabaseEntity(
     @PrimaryKey val id: Int,
     val name: String,
     @ColumnInfo(name = "date_end") val dateEnd: String,
+    val rate: Double,
 )
 
 fun List<CurrencyDatabaseEntity>.asDomainModel(): List<Currency> {
@@ -19,6 +20,7 @@ fun List<CurrencyDatabaseEntity>.asDomainModel(): List<Currency> {
             id = it.id,
             name = it.name,
             dateEnd = it.dateEnd,
+            rate = it.rate,
         )
     }
 }

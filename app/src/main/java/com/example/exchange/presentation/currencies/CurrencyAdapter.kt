@@ -12,6 +12,7 @@ import com.example.exchange.models.Currency
 
 class CurrencyAdapter : RecyclerView.Adapter<CurrencyAdapter.ViewHolder>() {
 
+
     private var items: List<Currency> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -44,7 +45,10 @@ class CurrencyAdapter : RecyclerView.Adapter<CurrencyAdapter.ViewHolder>() {
 
         fun bind(currency: Currency) {
             val name: TextView = itemView.findViewById(R.id.currency_name)
+            val rate: TextView = itemView.findViewById(R.id.currency_rate)
+
             name.text = currency.name
+            rate.text = currency.rate.toString()
         }
     }
 }

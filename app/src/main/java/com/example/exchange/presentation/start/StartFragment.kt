@@ -5,13 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
+import android.widget.EditText
+import android.widget.Spinner
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import com.example.exchange.R
 import com.example.exchange.databinding.FragmentStartBinding
-import com.example.exchange.presentation.currencies.CurrenciesViewModel
-import java.util.Currency
+import com.example.exchange.models.Currency
+
 
 class StartFragment : Fragment() {
 
@@ -36,21 +38,9 @@ class StartFragment : Fragment() {
     ): View? {
         _binding = FragmentStartBinding.inflate(inflater, container, false)
 
-        viewModel.listAbbreviation.observe(viewLifecycleOwner) { list ->
-            binding.spinnerFirst.adapter =
-                ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, list)
-        }
+//        setEditObserver(binding.editByn.editText, 1.0)
 
-        binding.spinnerFirst.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                viewModel.updateRate()
-            }
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
-            }
-
-        }
+        setSpinnerObserver(binding.spinnerFirst, binding.editFirst.editText)
 
         return binding.root
     }
@@ -58,5 +48,45 @@ class StartFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun setSpinnerObserver(spinner: Spinner, editText: EditText?) {
+        viewModel.currenciesList.observe(viewLifecycleOwner) { list ->
+            setSpinnerAdapter(spinner, list)
+        }
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                itemSelected: View?, selectedItemPosition: Int, selectedId: Long
+            ) {
+                val item = spinner.selectedItem as Currency
+                setEditObserver(editText, item.rate)
+//                setEditChangeListener(editText, item)
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
+        }
+    }
+
+    private fun setSpinnerAdapter(spinner: Spinner, list: List<Currency>) {
+        val adapter = CustomSpinnerAdapter(requireContext(), list)
+        spinner.adapter = adapter
+        spinner.setSelection(0)
+
+    }
+
+    private fun setEditObserver(editText: EditText?, rate: Double) {
+        when(editText?.id){
+            R.id.edit_first -> viewModel.firstCurrencyAmount.observe(viewLifecycleOwner){
+                editText.setText(it.toString())
+            }
+        }
+        viewModel.updateRate(editText, rate)
+    }
+
+    private fun setEditChangeListener(editText: EditText?, currency: Currency) {
+        editText?.doOnTextChanged { text, _, _, _ ->
+            viewModel.updateByn(text.toString().toDouble(), currency)
+        }
     }
 }

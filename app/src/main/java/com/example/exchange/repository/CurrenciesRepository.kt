@@ -12,7 +12,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.LocalDateTime
 import javax.inject.Inject
-import kotlin.coroutines.coroutineContext
 
 
 class CurrenciesRepository @Inject constructor(
@@ -29,10 +28,6 @@ class CurrenciesRepository @Inject constructor(
         Transformations.map(currencies){
             it.map { it.abbreviation }
         }
-
-//    fun getAbbreviations(): List<String>? {
-//        return currencies.value?.map { it.abbreviation }
-//    }
 
     @SuppressLint("NewApi")
     suspend fun refreshCurrencies() {

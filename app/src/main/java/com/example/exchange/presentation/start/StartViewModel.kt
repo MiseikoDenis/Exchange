@@ -1,12 +1,11 @@
 package com.example.exchange.presentation.start
 
 import android.app.Application
-import android.widget.EditText
 import androidx.lifecycle.*
 import com.example.exchange.models.Currency
 import com.example.exchange.presentation.appComponent
-import com.example.exchange.presentation.currencies.CurrenciesViewModel
 import com.example.exchange.repository.CurrenciesRepository
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -16,32 +15,43 @@ class StartViewModel(application: Application) : ViewModel() {
     lateinit var currenciesList: LiveData<List<Currency>>
 
     @Inject
-    lateinit var currencyRepository: CurrenciesRepository
+    lateinit var currenciesRepository: CurrenciesRepository
 
     @Inject
     lateinit var listAbbreviation: LiveData<List<String>>
 
-    private var _bynAmmount = MutableLiveData(0)
-    val bynAmmount: LiveData<Int>
-        get() = _bynAmmount
+    private var firstRate = 0.0
+    private var secondRate = 0.0
+    private var thirdRate = 0.0
 
-    private var _firstCurrencyAmmount = MutableLiveData(0)
-    val firstCurrencyAmmount: LiveData<Int>
-        get() = _firstCurrencyAmmount
+    private var _bynAmount = MutableLiveData(0.0)
+    val bynAmount: LiveData<Double>
+        get() = _bynAmount
 
-    private var _secondCurrencyAmmount = MutableLiveData(0)
-    val secondCurrencyAmmount: LiveData<Int>
-        get() = _secondCurrencyAmmount
+    private var _firstCurrencyAmount = MutableLiveData(firstRate)
+    val firstCurrencyAmount: LiveData<Double>
+        get() = _firstCurrencyAmount
 
-    private var _thirdCurrencyAmmount = MutableLiveData(0)
-    val thirdCurrencyAmmount: LiveData<Int>
-        get() = _thirdCurrencyAmmount
+    private var _secondCurrencyAmount = MutableLiveData(0.0)
+    val secondCurrencyAmount: LiveData<Double>
+        get() = _secondCurrencyAmount
+
+    private var _thirdCurrencyAmount = MutableLiveData(0.0)
+    val thirdCurrencyAmount: LiveData<Double>
+        get() = _thirdCurrencyAmount
 
     init {
         application.appComponent.inject(this)
     }
 
-    fun updateRate(editText: EditText, abbreviature: String) {
+    fun updateRate(currency: Currency) {
+        viewModelScope.launch {
+            firstRate = currency.rate
+            _firstCurrencyAmount.value = firstRate
+        }
+    }
+
+    fun updateCurrencyAmount(){
 
     }
 

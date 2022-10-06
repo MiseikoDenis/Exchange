@@ -12,29 +12,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
+        android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:orientation="horizontal">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/byn"
-            android:layout_width="104dp"
+            android:layout_width="120dp"
             android:layout_height="60dp"
-            android:text="BYN"
+            android:layout_marginStart="24dp"
             android:gravity="center"
-            android:textSize="24sp"
-            android:layout_marginStart="32dp" />
+            android:text="BYN"
+            android:textSize="24sp" />
 
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/edit_byn"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:text="0"
-            android:hint='Введите количество'
-            android:inputType="number|numberDecimal"
-            android:singleLine="false" />
+            android:hint="Валюта">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="numberDecimal" />
+
+        </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -42,26 +44,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="96dp"
+        android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/currency_first"
-        android:orientation="horizontal">
+        app:layout_constraintTop_toTopOf="@id/currency_first">
 
         <Spinner
             android:id="@+id/spinner_first"
-            android:layout_width="104dp"
+            android:layout_width="120dp"
             android:layout_height="60dp"
-            android:layout_marginStart="32dp" />
+            android:layout_marginStart="24dp" />
 
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/edit_first"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:text="0"
-            android:hint='Введите количество'
-            android:inputType="number|numberDecimal"
-            android:singleLine="false" />
+            android:hint="Введите количество">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="numberDecimal" />
+        </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
 

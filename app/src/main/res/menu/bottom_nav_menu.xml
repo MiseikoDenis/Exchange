@@ -22,7 +22,7 @@
         android:title="Четвертый" />
 
     <item
-        android:id="@+id/fifthFragment"
+        android:id="@+id/settingsFragment"
         android:icon="@drawable/ic_notifications_black_24dp"
         android:title="Пятый" />
 

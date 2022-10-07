@@ -26,8 +26,8 @@
         android:label="fragment_fourth"
         tools:layout="@layout/fragment_fourth" />
     <fragment
-        android:id="@+id/fifthFragment"
-        android:name="com.example.exchange.presentation.fifth.FifthFragment"
+        android:id="@+id/settingsFragment"
+        android:name="com.example.exchange.presentation.settings.SettingsFragment"
         android:label="fragment_fifth"
-        tools:layout="@layout/fragment_fifth" />
+        tools:layout="@layout/fragment_settings" />
 </navigation>

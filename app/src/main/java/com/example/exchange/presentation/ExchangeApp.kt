@@ -14,7 +14,7 @@ class ExchangeApp : Application() {
         super.onCreate()
         appComponent =
             DaggerAppComponent.builder()
-                .roomModule(RoomModule(applicationContext))
+                .buildContext(this)
                 .build()
     }
 }

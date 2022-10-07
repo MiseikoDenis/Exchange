@@ -9,11 +9,11 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class RoomModule(private val context: Context) {
+class RoomModule {
 
     @Provides
     @Singleton
-    fun provideDatabase(): CurrencyDatabase {
+    fun provideDatabase(context: Context): CurrencyDatabase {
         return Room.databaseBuilder(
             context.applicationContext,
             CurrencyDatabase::class.java,

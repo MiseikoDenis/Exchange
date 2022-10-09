@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.exchange.R
 import com.example.exchange.databinding.FragmentStartBinding
 import com.example.exchange.models.Currency
+import com.example.exchange.util.spinner.CustomSpinnerAdapter
 
 
 class StartFragment : Fragment() {
@@ -52,7 +53,7 @@ class StartFragment : Fragment() {
 
     private fun setSpinnerObserver(spinner: Spinner, editText: EditText?) {
         viewModel.currenciesList.observe(viewLifecycleOwner) { list ->
-            setSpinnerAdapter(spinner, list)
+            setSpinnerAdapter(spinner, list.sortedBy { it.abbreviation })
         }
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(

@@ -2,6 +2,7 @@ package com.example.exchange
 
 import android.content.Context
 import com.example.exchange.presentation.currencies.CurrenciesViewModel
+import com.example.exchange.presentation.dynamic.DynamicViewModel
 import com.example.exchange.presentation.settings.SettingsFragment
 import com.example.exchange.presentation.start.StartViewModel
 import com.example.exchange.repository.CurrenciesRepository
@@ -18,6 +19,7 @@ interface AppComponent {
     fun inject(target: CurrenciesViewModel)
     fun inject(target: StartViewModel)
     fun inject(target: SettingsFragment)
+    fun inject(target: DynamicViewModel)
 
     @Component.Builder
     interface Builder {

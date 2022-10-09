@@ -12,6 +12,9 @@ class Constants {
         const val APP_THEME_PREFERENCE_SYSTEM = "Theme_Settings_System"
         const val THEME_UNDEFINED = "Theme_Undefined"
 
+        const val BASE_ID = 0
+        const val BASE_DATE = ""
+
 
 
     }

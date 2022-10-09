@@ -26,8 +26,10 @@ class CurrenciesRepository @Inject constructor(
 
     val abreviatures: LiveData<List<String>> =
         Transformations.map(currencies){
-            it.map { it.abbreviation }
+            it.map { it.abbreviation }.sortedBy { it }
         }
+
+    suspend fun getDynamic(id: Int, start: String, end: String) = retrofitService.getCurrencyDynamic(id, start, end)
 
     @SuppressLint("NewApi")
     suspend fun refreshCurrencies() {

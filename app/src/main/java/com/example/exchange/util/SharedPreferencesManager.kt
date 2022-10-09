@@ -33,7 +33,7 @@ class SharedPreferencesManager @Inject constructor(private val context: Context)
 
 
 
-    fun saveTheme(theme: String) = preferences.edit().putString(APP_THEME_PREFERENCE, theme).apply()
+    private fun saveTheme(theme: String) = preferences.edit().putString(APP_THEME_PREFERENCE, theme).apply()
 
     fun getSavedTheme() = preferences.getString(APP_THEME_PREFERENCE, THEME_UNDEFINED)
 }

@@ -1,4 +1,4 @@
-package com.example.exchange.presentation.start
+package com.example.exchange.util.spinner
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import android.widget.TextView
 import com.example.exchange.R
 import com.example.exchange.models.Currency
 
-class CustomSpinnerAdapter(val context: Context, var dataSource: List<Currency>) : BaseAdapter() {
+class CustomSpinnerAdapter(val context: Context, private var dataSource: List<Currency>) : BaseAdapter() {
 
     private val inflater: LayoutInflater =
         context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -31,7 +31,7 @@ class CustomSpinnerAdapter(val context: Context, var dataSource: List<Currency>)
         val view: View
         val vh: ItemHolder
         if (convertView == null) {
-            view = inflater.inflate(R.layout.custom_item_spinner, parent, false)
+            view = inflater.inflate(R.layout.item_spinner_custom, parent, false)
             vh = ItemHolder(view)
             view?.tag = vh
         } else {

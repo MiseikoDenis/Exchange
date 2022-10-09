@@ -49,15 +49,12 @@ class SettingsFragment : Fragment() {
     }
 
     fun initView() {
-
-        binding.themeSettings.setOnCheckedChangeListener { view, checked ->
+        binding.themeSettings.setOnCheckedChangeListener { _, checked ->
             when(checked) {
                 R.id.dark_theme_radiobutton -> sharedPreferencesManager.setTheme(AppCompatDelegate.MODE_NIGHT_YES, APP_THEME_PREFERENCE_DARK)
                 R.id.light_theme_radiobutton -> sharedPreferencesManager.setTheme(AppCompatDelegate.MODE_NIGHT_NO, APP_THEME_PREFERENCE_LIGHT)
                 R.id.system_theme_radiobutton -> sharedPreferencesManager.setTheme(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM, APP_THEME_PREFERENCE_SYSTEM)
             }
-
-
         }
     }
 

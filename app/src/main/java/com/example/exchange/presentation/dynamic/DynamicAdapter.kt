@@ -1,4 +1,4 @@
-package com.example.exchange.presentation.currencies
+package com.example.exchange.presentation.dynamic
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -8,13 +8,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.exchange.R
+import com.example.exchange.api.NetworkDynamic
 import com.example.exchange.models.Currency
 
+class DynamicAdapter : RecyclerView.Adapter<DynamicAdapter.ViewHolder>() {
 
-class CurrencyAdapter : RecyclerView.Adapter<CurrencyAdapter.ViewHolder>() {
 
-
-    private var items: List<Currency> = emptyList()
+    private var items: List<NetworkDynamic> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
@@ -28,7 +28,7 @@ class CurrencyAdapter : RecyclerView.Adapter<CurrencyAdapter.ViewHolder>() {
     override fun getItemCount(): Int = items.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun submitItem(listItem: List<Currency>) {
+    fun submitItem(listItem: List<NetworkDynamic>) {
         items = listItem
         notifyDataSetChanged()
     }
@@ -39,28 +39,28 @@ class CurrencyAdapter : RecyclerView.Adapter<CurrencyAdapter.ViewHolder>() {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val view = layoutInflater
-                    .inflate(R.layout.item_currency, parent, false)
+                    .inflate(R.layout.item_dynamic, parent, false)
                 return ViewHolder(view)
             }
         }
 
-        fun bind(currency: Currency) {
-            val name: TextView = itemView.findViewById(R.id.currency_name)
-            val rate: TextView = itemView.findViewById(R.id.currency_rate)
+        fun bind(networkDynamic: NetworkDynamic) {
+            val date: TextView = itemView.findViewById(R.id.date)
+            val rate: TextView = itemView.findViewById(R.id.rate)
+            val dynamic: TextView = itemView.findViewById(R.id.dynamic)
 
-            name.text = currency.name
-            rate.text = currency.rate.toString()
+            date.text = networkDynamic.date
+            rate.text = networkDynamic.rate.toString()
         }
     }
 
-    companion object DiffCallback : DiffUtil.ItemCallback<Currency>() {
-        override fun areItemsTheSame(oldItem: Currency, newItem: Currency): Boolean {
+    companion object DiffCallback : DiffUtil.ItemCallback<NetworkDynamic>() {
+        override fun areItemsTheSame(oldItem: NetworkDynamic, newItem: NetworkDynamic): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Currency, newItem: Currency): Boolean {
+        override fun areContentsTheSame(oldItem: NetworkDynamic, newItem: NetworkDynamic): Boolean {
             return oldItem.id == newItem.id
         }
     }
 }
-

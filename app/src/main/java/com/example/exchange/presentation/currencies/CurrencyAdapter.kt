@@ -44,12 +44,15 @@ class CurrencyAdapter : RecyclerView.Adapter<CurrencyAdapter.ViewHolder>() {
             }
         }
 
+        @SuppressLint("SetTextI18n")
         fun bind(currency: Currency) {
             val name: TextView = itemView.findViewById(R.id.currency_name)
             val rate: TextView = itemView.findViewById(R.id.currency_rate)
+            val quoteName: TextView = itemView.findViewById(R.id.currency_quoteName)
 
             name.text = currency.name
             rate.text = currency.rate.toString()
+            quoteName.text = "/${currency.quoteName}"
         }
     }
 

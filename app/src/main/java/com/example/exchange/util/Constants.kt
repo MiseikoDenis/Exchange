@@ -14,6 +14,7 @@ class Constants {
 
         const val BASE_ID = 0
         const val BASE_DATE = ""
+        const val BASE_RATE = 1.0
 
 
 

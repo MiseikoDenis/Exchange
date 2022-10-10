@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.EditText
 import android.widget.Spinner
+import androidx.core.widget.doBeforeTextChanged
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -39,9 +40,11 @@ class StartFragment : Fragment() {
     ): View? {
         _binding = FragmentStartBinding.inflate(inflater, container, false)
 
-//        setEditObserver(binding.editByn.editText, 1.0)
-
-        setSpinnerObserver(binding.spinnerFirst, binding.editFirst.editText)
+        setEditTextObserver(binding.textByn.editText)
+        setCurrencyObserver(binding.spinnerFirst, binding.textFirst.editText)
+        setCurrencyObserver(binding.spinnerSecond, binding.textSecond.editText)
+        setCurrencyObserver(binding.spinnerThird, binding.textThird.editText)
+        setCurrencyObserver(binding.spinnerFourth, binding.textFourth.editText)
 
         return binding.root
     }
@@ -49,6 +52,11 @@ class StartFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun setCurrencyObserver(spinner: Spinner, editText: EditText?) {
+        setSpinnerObserver(spinner, editText)
+        setEditTextObserver(editText)
     }
 
     private fun setSpinnerObserver(spinner: Spinner, editText: EditText?) {
@@ -61,33 +69,47 @@ class StartFragment : Fragment() {
                 itemSelected: View?, selectedItemPosition: Int, selectedId: Long
             ) {
                 val item = spinner.selectedItem as Currency
-                setEditObserver(editText, item.rate)
-//                setEditChangeListener(editText, item)
+                viewModel.updateEditText(editText, item.rate)
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {}
         }
     }
 
+    private fun setEditTextObserver(editText: EditText?) {
+        when (editText?.id) {
+            R.id.edit_byn -> viewModel.bynAmount.observe(viewLifecycleOwner) {
+                editText.setText(it.toString())
+            }
+            R.id.edit_first -> viewModel.firstCurrencyAmount.observe(viewLifecycleOwner) {
+                editText.setText(it.toString())
+            }
+            R.id.edit_second -> viewModel.secondCurrencyAmount.observe(viewLifecycleOwner) {
+                editText.setText(it.toString())
+            }
+            R.id.edit_third -> viewModel.thirdCurrencyAmount.observe(viewLifecycleOwner) {
+                editText.setText(it.toString())
+            }
+            R.id.edit_fourth -> viewModel.fourthCurrencyAmount.observe(viewLifecycleOwner) {
+                editText.setText(it.toString())
+            }
+        }
+        setEditChangeListener(editText)
+    }
+
     private fun setSpinnerAdapter(spinner: Spinner, list: List<Currency>) {
         val adapter = CustomSpinnerAdapter(requireContext(), list)
         spinner.adapter = adapter
         spinner.setSelection(0)
-
     }
 
-    private fun setEditObserver(editText: EditText?, rate: Double) {
-        when(editText?.id){
-            R.id.edit_first -> viewModel.firstCurrencyAmount.observe(viewLifecycleOwner){
-                editText.setText(it.toString())
+    private fun setEditChangeListener(editText: EditText?) {
+        editText?.doOnTextChanged { text, start, before, count ->
+            try {
+                viewModel.updateByn(text.toString().toDouble(), editText)
+            } catch (exception: NumberFormatException){
+                editText.setText("0")
             }
-        }
-        viewModel.updateRate(editText, rate)
-    }
-
-    private fun setEditChangeListener(editText: EditText?, currency: Currency) {
-        editText?.doOnTextChanged { text, _, _, _ ->
-            viewModel.updateByn(text.toString().toDouble(), currency)
         }
     }
 }

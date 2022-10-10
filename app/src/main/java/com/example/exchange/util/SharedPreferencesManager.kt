@@ -1,11 +1,9 @@
 package com.example.exchange.util
 
 import android.content.Context
-import android.content.res.Resources
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.exchange.util.Constants.Companion.APP_PREFERENCE
 import com.example.exchange.util.Constants.Companion.APP_THEME_PREFERENCE
-import com.example.exchange.util.Constants.Companion.APP_THEME_PREFERENCE_DARK
 import com.example.exchange.util.Constants.Companion.THEME_UNDEFINED
 import javax.inject.Inject
 
@@ -19,19 +17,10 @@ class SharedPreferencesManager @Inject constructor(private val context: Context)
         )
     }
 
-    fun save(key: String, value: String) {
-        preferences.edit()
-            .putString(key, value)
-            .apply()
-    }
-
-
     fun setTheme(themeMode: Int, prefsMode: String) {
         AppCompatDelegate.setDefaultNightMode(themeMode)
         saveTheme(prefsMode)
     }
-
-
 
     private fun saveTheme(theme: String) = preferences.edit().putString(APP_THEME_PREFERENCE, theme).apply()
 

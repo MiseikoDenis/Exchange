@@ -84,12 +84,14 @@ class DynamicFragment : Fragment() {
             setSpinnerAdapter(spinner, list.sortedBy { it.abbreviation })
         }
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            @SuppressLint("SetTextI18n")
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 itemSelected: View?, selectedItemPosition: Int, selectedId: Long
             ) {
                 val item = spinner.selectedItem as Currency
                 viewModel.refreshId(item.id)
+                binding.dynamicQuoteName.text = "/${item.quoteName}"
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {}

@@ -25,11 +25,12 @@
             android:textSize="24sp" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edit_byn"
+            android:id="@+id/text_byn"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_byn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="numberDecimal" />
@@ -53,11 +54,12 @@
             android:layout_marginStart="24dp" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edit_first"
+            android:id="@+id/text_first"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_first"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="numberDecimal" />
@@ -80,11 +82,12 @@
             android:layout_marginStart="24dp" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edit_second"
+            android:id="@+id/text_second"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_second"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="numberDecimal" />
@@ -107,11 +110,12 @@
             android:layout_marginStart="24dp" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edit_third"
+            android:id="@+id/text_third"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_third"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="numberDecimal" />
@@ -134,11 +138,12 @@
             android:layout_marginStart="24dp" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edit_fourth"
+            android:id="@+id/text_fourth"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_fourth"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="numberDecimal" />

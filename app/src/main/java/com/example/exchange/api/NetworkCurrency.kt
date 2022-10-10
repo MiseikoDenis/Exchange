@@ -12,4 +12,6 @@ data class NetworkCurrency(
     val abbreviation: String,
     @Json(name = "Cur_DateEnd")
     val dateEnd: String,
+    @Json(name = "Cur_QuotName")
+    val quoteName: String,
 )

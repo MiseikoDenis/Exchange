@@ -10,6 +10,7 @@ import com.example.exchange.R
 import com.example.exchange.models.Currency
 import com.example.exchange.presentation.appComponent
 import com.example.exchange.repository.CurrenciesRepository
+import com.example.exchange.util.Constants.Companion.BASE_RATE
 import javax.inject.Inject
 
 
@@ -24,17 +25,17 @@ class StartViewModel(application: Application) : ViewModel() {
     @Inject
     lateinit var listAbbreviation: LiveData<List<String>>
 
-    private var firstRate = 0.0
-    private var secondRate = 0.0
-    private var thirdRate = 0.0
-    private var fourthRate = 0.0
+    private var firstRate = BASE_RATE
+    private var secondRate = BASE_RATE
+    private var thirdRate = BASE_RATE
+    private var fourthRate = BASE_RATE
 
     private var _bynAmount = MutableLiveData(1.0)
     val bynAmount: LiveData<Double>
         get() = _bynAmount
 
-    private var _firstCurrencyAmount = MutableLiveData(_bynAmount.value?.times(firstRate))
-    val firstCurrencyAmount: LiveData<Double?>
+    private var _firstCurrencyAmount = MutableLiveData(firstRate)
+    val firstCurrencyAmount: LiveData<Double>
         get() = _firstCurrencyAmount
 
     private var _secondCurrencyAmount = MutableLiveData(secondRate)
@@ -53,20 +54,35 @@ class StartViewModel(application: Application) : ViewModel() {
         application.appComponent.inject(this)
     }
 
-    fun updateRate(editText: EditText?, rate: Double) {
+    fun updateEditText(editText: EditText?, rate: Double) {
         when (editText?.id) {
-           R.id.edit_first  -> firstRate = rate
-           R.id.edit_second  -> secondRate = rate
-           R.id.edit_third  -> thirdRate = rate
-           R.id.edit_fourth  -> fourthRate = rate
-            else -> return
+            R.id.edit_first -> {
+                firstRate = rate
+                _firstCurrencyAmount.value = _bynAmount.value?.times(firstRate)
+            }
+            R.id.edit_second -> {
+                secondRate = rate
+                _secondCurrencyAmount.value = _bynAmount.value?.times(secondRate)
+            }
+            R.id.edit_third -> {
+                thirdRate = rate
+                _thirdCurrencyAmount.value = _bynAmount.value?.times(thirdRate)
+            }
+            R.id.edit_fourth -> {
+                fourthRate = rate
+                _fourthCurrencyAmount.value = _bynAmount.value?.times(fourthRate)
+            }
         }
     }
 
-    fun updateByn(amount: Double, currency: Currency) {
-        _bynAmount.postValue(amount.div(currency.rate))
+    fun updateByn(amount: Double, editText: EditText?){
+        when(editText?.id){
+            R.id.edit_first -> _bynAmount.value = amount/firstRate
+            R.id.edit_second -> _bynAmount.value = amount/secondRate
+            R.id.edit_third -> _bynAmount.value = amount/thirdRate
+            R.id.edit_fourth -> _bynAmount.value = amount/fourthRate
+        }
     }
-
 
     class Factory(val app: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {

@@ -3,19 +3,14 @@ package com.example.exchange.presentation.settings
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.fragment.app.Fragment
 import com.example.exchange.R
-import com.example.exchange.databinding.FragmentCurrenciesBinding
 import com.example.exchange.databinding.FragmentSettingsBinding
-import com.example.exchange.databinding.FragmentStartBinding
-import com.example.exchange.presentation.ExchangeApp
 import com.example.exchange.presentation.appComponent
-import com.example.exchange.util.Constants.Companion.APP_THEME_PREFERENCE
 import com.example.exchange.util.Constants.Companion.APP_THEME_PREFERENCE_DARK
 import com.example.exchange.util.Constants.Companion.APP_THEME_PREFERENCE_LIGHT
 import com.example.exchange.util.Constants.Companion.APP_THEME_PREFERENCE_SYSTEM
@@ -77,8 +72,4 @@ class SettingsFragment : Fragment() {
             }
         }
     }
-
-
-
-
 }

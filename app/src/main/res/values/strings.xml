@@ -4,4 +4,8 @@
     <string name="byn">BYN</string>
     <string name="dynamic">Динамика</string>
     <string name="pick_the_date">Выберите дату</string>
+    <string name="using_theme">Используемая тема</string>
+    <string name="system">Системная</string>
+    <string name="light">Светлая</string>
+    <string name="dark">Темная</string>
 </resources>

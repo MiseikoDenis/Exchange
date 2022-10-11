@@ -11,5 +11,5 @@ class RepositoryModule {
     fun provideCurrenciesList(repository: CurrenciesRepository) = repository.currencies
 
     @Provides
-    fun provideAbbreviatures(repository: CurrenciesRepository) = repository.abreviatures
+    fun provideAbbreviations(repository: CurrenciesRepository) = repository.abbreviations
 }

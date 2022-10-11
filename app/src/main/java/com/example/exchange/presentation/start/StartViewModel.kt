@@ -1,16 +1,19 @@
 package com.example.exchange.presentation.start
 
 import android.app.Application
-import android.widget.EditText
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.exchange.R
 import com.example.exchange.models.Currency
 import com.example.exchange.presentation.appComponent
 import com.example.exchange.repository.CurrenciesRepository
 import com.example.exchange.util.Constants.Companion.BASE_RATE
+import com.example.exchange.util.Constants.Companion.BYN_FIELD
+import com.example.exchange.util.Constants.Companion.FIRST_FIELD
+import com.example.exchange.util.Constants.Companion.FOURTH_FIELD
+import com.example.exchange.util.Constants.Companion.SECOND_FIELD
+import com.example.exchange.util.Constants.Companion.THIRD_FIELD
 import javax.inject.Inject
 
 
@@ -54,33 +57,57 @@ class StartViewModel(application: Application) : ViewModel() {
         application.appComponent.inject(this)
     }
 
-    fun updateEditText(editText: EditText?, rate: Double) {
-        when (editText?.id) {
-            R.id.edit_first -> {
-                firstRate = rate
-                _firstCurrencyAmount.value = _bynAmount.value?.times(firstRate)
-            }
-            R.id.edit_second -> {
-                secondRate = rate
-                _secondCurrencyAmount.value = _bynAmount.value?.times(secondRate)
-            }
-            R.id.edit_third -> {
-                thirdRate = rate
-                _thirdCurrencyAmount.value = _bynAmount.value?.times(thirdRate)
-            }
-            R.id.edit_fourth -> {
-                fourthRate = rate
-                _fourthCurrencyAmount.value = _bynAmount.value?.times(fourthRate)
-            }
+    fun updateRate(id: Int, rate: Double) {
+        when (id) {
+            FIRST_FIELD -> firstRate = rate
+            SECOND_FIELD -> secondRate = rate
+            THIRD_FIELD -> thirdRate = rate
+            FOURTH_FIELD -> fourthRate = rate
+        }
+        updateAmount(id)
+    }
+
+    private fun updateAmount(id: Int) {
+        when (id) {
+            FIRST_FIELD -> _firstCurrencyAmount.value = _bynAmount.value?.times(firstRate)
+            SECOND_FIELD -> _secondCurrencyAmount.value = _bynAmount.value?.times(secondRate)
+            THIRD_FIELD -> _thirdCurrencyAmount.value = _bynAmount.value?.times(thirdRate)
+            FOURTH_FIELD -> _fourthCurrencyAmount.value = _bynAmount.value?.times(fourthRate)
         }
     }
 
-    fun updateByn(amount: Double, editText: EditText?){
-        when(editText?.id){
-            R.id.edit_first -> _bynAmount.value = amount/firstRate
-            R.id.edit_second -> _bynAmount.value = amount/secondRate
-            R.id.edit_third -> _bynAmount.value = amount/thirdRate
-            R.id.edit_fourth -> _bynAmount.value = amount/fourthRate
+    fun updateOtherFields(amount: Double, id: Int) {
+        when (id) {
+            FIRST_FIELD -> {
+                _bynAmount.value = amount / firstRate
+                updateAmount(SECOND_FIELD)
+                updateAmount(THIRD_FIELD)
+                updateAmount(FOURTH_FIELD)
+            }
+            SECOND_FIELD -> {
+                _bynAmount.value = amount / secondRate
+                updateAmount(FIRST_FIELD)
+                updateAmount(THIRD_FIELD)
+                updateAmount(FOURTH_FIELD)
+            }
+            THIRD_FIELD -> {
+                _bynAmount.value = amount / thirdRate
+                updateAmount(FIRST_FIELD)
+                updateAmount(SECOND_FIELD)
+                updateAmount(FOURTH_FIELD)
+            }
+            FOURTH_FIELD -> {
+                _bynAmount.value = amount / fourthRate
+                updateAmount(FIRST_FIELD)
+                updateAmount(SECOND_FIELD)
+                updateAmount(THIRD_FIELD)
+            }
+            BYN_FIELD -> {
+                _firstCurrencyAmount.value = amount.times(firstRate)
+                _secondCurrencyAmount.value = amount.times(secondRate)
+                _thirdCurrencyAmount.value = amount.times(thirdRate)
+                _fourthCurrencyAmount.value = amount.times(fourthRate)
+            }
         }
     }
 

@@ -24,9 +24,9 @@ class CurrenciesRepository @Inject constructor(
             it.asDomainModel().sortedBy { currency -> currency.name }
         }
 
-    val abreviatures: LiveData<List<String>> =
+    val abbreviations: LiveData<List<String>> =
         Transformations.map(currencies) {
-            it.map { it.abbreviation }.sortedBy { it }
+            it.map { currency -> currency.abbreviation }.sortedBy { name -> name }
         }
 
     suspend fun getDynamic(id: Int, start: String, end: String) =

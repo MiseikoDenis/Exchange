@@ -7,13 +7,17 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.EditText
 import android.widget.Spinner
-import androidx.core.widget.doBeforeTextChanged
-import androidx.core.widget.doOnTextChanged
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.exchange.R
 import com.example.exchange.databinding.FragmentStartBinding
 import com.example.exchange.models.Currency
+import com.example.exchange.util.Constants.Companion.BYN_FIELD
+import com.example.exchange.util.Constants.Companion.FIRST_FIELD
+import com.example.exchange.util.Constants.Companion.FOURTH_FIELD
+import com.example.exchange.util.Constants.Companion.SECOND_FIELD
+import com.example.exchange.util.Constants.Companion.THIRD_FIELD
 import com.example.exchange.util.spinner.CustomSpinnerAdapter
 
 
@@ -41,6 +45,7 @@ class StartFragment : Fragment() {
         _binding = FragmentStartBinding.inflate(inflater, container, false)
 
         setEditTextObserver(binding.textByn.editText)
+        setEditChangeListener(binding.textByn.editText)
         setCurrencyObserver(binding.spinnerFirst, binding.textFirst.editText)
         setCurrencyObserver(binding.spinnerSecond, binding.textSecond.editText)
         setCurrencyObserver(binding.spinnerThird, binding.textThird.editText)
@@ -57,6 +62,7 @@ class StartFragment : Fragment() {
     private fun setCurrencyObserver(spinner: Spinner, editText: EditText?) {
         setSpinnerObserver(spinner, editText)
         setEditTextObserver(editText)
+        setEditChangeListener(editText)
     }
 
     private fun setSpinnerObserver(spinner: Spinner, editText: EditText?) {
@@ -69,11 +75,32 @@ class StartFragment : Fragment() {
                 itemSelected: View?, selectedItemPosition: Int, selectedId: Long
             ) {
                 val item = spinner.selectedItem as Currency
-                viewModel.updateEditText(editText, item.rate)
+                updateEditText(editText, item.rate)
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {}
         }
+    }
+
+    private fun setSpinnerAdapter(spinner: Spinner, list: List<Currency>) {
+        val adapter = CustomSpinnerAdapter(requireContext(), list)
+        spinner.adapter = adapter
+        spinner.setSelection(0)
+    }
+
+    private fun getEditPosition(editText: EditText?): Int {
+        return when (editText?.id) {
+            R.id.edit_first -> FIRST_FIELD
+            R.id.edit_second -> SECOND_FIELD
+            R.id.edit_third -> THIRD_FIELD
+            R.id.edit_fourth -> FOURTH_FIELD
+            R.id.edit_byn -> BYN_FIELD
+            else -> -1
+        }
+    }
+
+    private fun updateEditText(editText: EditText?, rate: Double) {
+        viewModel.updateRate(getEditPosition(editText), rate)
     }
 
     private fun setEditTextObserver(editText: EditText?) {
@@ -94,21 +121,20 @@ class StartFragment : Fragment() {
                 editText.setText(it.toString())
             }
         }
-        setEditChangeListener(editText)
-    }
-
-    private fun setSpinnerAdapter(spinner: Spinner, list: List<Currency>) {
-        val adapter = CustomSpinnerAdapter(requireContext(), list)
-        spinner.adapter = adapter
-        spinner.setSelection(0)
     }
 
     private fun setEditChangeListener(editText: EditText?) {
-        editText?.doOnTextChanged { text, start, before, count ->
-            try {
-                viewModel.updateByn(text.toString().toDouble(), editText)
-            } catch (exception: NumberFormatException){
-                editText.setText("0")
+        editText?.doAfterTextChanged { text ->
+            if(editText.isFocused){
+                try {
+                    val amount = text.toString()
+                    if (amount.length == 2 && amount[0] == '0') {
+                        editText.setText(amount.substring(1))
+                    }
+                    viewModel.updateOtherFields(amount.toDouble(), getEditPosition(editText))
+                } catch (exception: NumberFormatException) {
+                    editText.setText("0")
+                }
             }
         }
     }

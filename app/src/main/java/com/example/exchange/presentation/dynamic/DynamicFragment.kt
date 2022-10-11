@@ -10,6 +10,7 @@ import android.widget.AdapterView
 import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.exchange.databinding.FragmentDynamicBinding
 import com.example.exchange.models.Currency
 import com.example.exchange.util.spinner.CustomSpinnerAdapter
@@ -40,6 +41,7 @@ class DynamicFragment : Fragment() {
     ): View? {
         _binding = FragmentDynamicBinding.inflate(inflater, container, false)
         binding.dynamicList.adapter = adapter
+        binding.dynamicList.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
 
         viewModel.dynamicList.observe(viewLifecycleOwner) { list ->
             adapter.submitItem(list)

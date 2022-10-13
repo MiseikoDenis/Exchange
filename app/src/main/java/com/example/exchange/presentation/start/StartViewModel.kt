@@ -1,12 +1,9 @@
 package com.example.exchange.presentation.start
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.example.exchange.models.Currency
-import com.example.exchange.presentation.appComponent
 import com.example.exchange.repository.CurrenciesRepository
 import com.example.exchange.util.Constants.Companion.BASE_RATE
 import com.example.exchange.util.Constants.Companion.BYN_FIELD
@@ -17,16 +14,11 @@ import com.example.exchange.util.Constants.Companion.THIRD_FIELD
 import javax.inject.Inject
 
 
-class StartViewModel(application: Application) : ViewModel() {
-
-    @Inject
-    lateinit var currenciesList: LiveData<List<Currency>>
-
-    @Inject
-    lateinit var currenciesRepository: CurrenciesRepository
-
-    @Inject
-    lateinit var listAbbreviation: LiveData<List<String>>
+class StartViewModel @Inject constructor(
+    val currenciesList: LiveData<List<Currency>>,
+    val currenciesRepository: CurrenciesRepository,
+    val listAbbreviation: LiveData<List<String>>
+) : ViewModel() {
 
     private var firstRate = BASE_RATE
     private var secondRate = BASE_RATE
@@ -53,10 +45,9 @@ class StartViewModel(application: Application) : ViewModel() {
     val fourthCurrencyAmount: LiveData<Double>
         get() = _fourthCurrencyAmount
 
-    init {
-        application.appComponent.inject(this)
-    }
 
+
+    //Обновить курс валюты в определенном поле
     fun updateRate(id: Int, rate: Double) {
         when (id) {
             FIRST_FIELD -> firstRate = rate
@@ -67,6 +58,7 @@ class StartViewModel(application: Application) : ViewModel() {
         updateAmount(id)
     }
 
+    //Обновить значение валюты в поле
     private fun updateAmount(id: Int) {
         when (id) {
             FIRST_FIELD -> _firstCurrencyAmount.value = _bynAmount.value?.times(firstRate)
@@ -76,6 +68,7 @@ class StartViewModel(application: Application) : ViewModel() {
         }
     }
 
+    //Обновить значения всех полей кроме выбранного
     fun updateOtherFields(amount: Double, id: Int) {
         when (id) {
             FIRST_FIELD -> {
@@ -110,15 +103,4 @@ class StartViewModel(application: Application) : ViewModel() {
             }
         }
     }
-
-    class Factory(val app: Application) : ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(StartViewModel::class.java)) {
-                @Suppress("UNCHECKED_CAST")
-                return StartViewModel(app) as T
-            }
-            throw IllegalArgumentException("Unable to construct viewmodel")
-        }
-    }
-
 }

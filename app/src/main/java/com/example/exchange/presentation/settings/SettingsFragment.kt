@@ -15,7 +15,7 @@ import com.example.exchange.util.Constants.Companion.APP_THEME_PREFERENCE_DARK
 import com.example.exchange.util.Constants.Companion.APP_THEME_PREFERENCE_LIGHT
 import com.example.exchange.util.Constants.Companion.APP_THEME_PREFERENCE_SYSTEM
 import com.example.exchange.util.Constants.Companion.THEME_UNDEFINED
-import com.example.exchange.util.SharedPreferencesManager
+import com.example.exchange.util.preference.SharedPreferencesManager
 import javax.inject.Inject
 
 class SettingsFragment : Fragment() {
@@ -43,7 +43,7 @@ class SettingsFragment : Fragment() {
         return binding.root
     }
 
-    fun initView() {
+    private fun initView() {
         binding.themeSettings.setOnCheckedChangeListener { _, checked ->
             when(checked) {
                 R.id.dark_theme_radiobutton -> sharedPreferencesManager.setTheme(AppCompatDelegate.MODE_NIGHT_YES, APP_THEME_PREFERENCE_DARK)
@@ -54,11 +54,6 @@ class SettingsFragment : Fragment() {
     }
 
     private fun initTheme() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P){
-            binding.systemThemeRadiobutton.visibility = View.VISIBLE
-        } else {
-            binding.systemThemeRadiobutton.visibility = View.GONE
-        }
         when (sharedPreferencesManager.getSavedTheme()) {
             APP_THEME_PREFERENCE_LIGHT -> binding.lightThemeRadiobutton.isChecked = true
             APP_THEME_PREFERENCE_DARK -> binding.darkThemeRadiobutton.isChecked = true

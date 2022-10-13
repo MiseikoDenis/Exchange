@@ -9,12 +9,13 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Spinner
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.exchange.databinding.FragmentDynamicBinding
 import com.example.exchange.models.Currency
+import com.example.exchange.presentation.appComponent
 import com.example.exchange.util.spinner.CustomSpinnerAdapter
 import java.util.*
+import javax.inject.Inject
 
 
 class DynamicFragment : Fragment() {
@@ -25,13 +26,8 @@ class DynamicFragment : Fragment() {
             "View was destroyed"
         }
 
-    private val viewModel: DynamicViewModel by lazy {
-        val activity = requireNotNull(this.activity) {
-            "You can only access the viewModel after onActivityCreated()"
-        }
-        ViewModelProvider(this, DynamicViewModel.Factory(activity.application))
-            .get(DynamicViewModel::class.java)
-    }
+    @Inject
+    lateinit var viewModel: DynamicViewModel
 
     private val adapter by lazy { DynamicAdapter() }
 
@@ -39,6 +35,7 @@ class DynamicFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        activity?.appComponent?.inject(this)
         _binding = FragmentDynamicBinding.inflate(inflater, container, false)
         binding.dynamicList.adapter = adapter
         binding.dynamicList.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
@@ -64,7 +61,6 @@ class DynamicFragment : Fragment() {
 
     @SuppressLint("NewApi", "SetTextI18n")
     private fun buttonSelectDate() {
-
         val dateListener = DatePickerDialog.OnDateSetListener { _, i, i2, i3 ->
             binding.editTextDate.setText("$i-${i2 + 1}-$i3")
             viewModel.refreshDates(binding.editTextDate.text.toString())

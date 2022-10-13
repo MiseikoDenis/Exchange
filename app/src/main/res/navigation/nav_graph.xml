@@ -16,15 +16,15 @@
         android:label="fragment_currencies"
         tools:layout="@layout/fragment_currencies" />
     <fragment
-        android:id="@+id/thirdFragment"
+        android:id="@+id/dynamicFragment"
         android:name="com.example.exchange.presentation.dynamic.DynamicFragment"
         android:label="fragment_third"
         tools:layout="@layout/fragment_dynamic" />
     <fragment
-        android:id="@+id/fourthFragment"
-        android:name="com.example.exchange.presentation.fourth.FourthFragment"
+        android:id="@+id/aboutFragment"
+        android:name="com.example.exchange.presentation.fourth.AboutFragment"
         android:label="fragment_fourth"
-        tools:layout="@layout/fragment_fourth" />
+        tools:layout="@layout/fragment_about" />
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.exchange.presentation.settings.SettingsFragment"

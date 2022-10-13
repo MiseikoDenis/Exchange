@@ -1,15 +1,15 @@
 package com.example.exchange.util.di
 
-import com.example.exchange.repository.CurrenciesRepository
+import com.example.exchange.repository.CurrenciesRepositoryImpl
 import dagger.Module
 import dagger.Provides
 
-@Module(includes = [NetworkModule::class, RoomModule::class])
+@Module(includes = [NetworkModule::class, RoomModule::class, BindersModule::class])
 class RepositoryModule {
 
     @Provides
-    fun provideCurrenciesList(repository: CurrenciesRepository) = repository.currencies
+    fun provideCurrenciesList(repository: CurrenciesRepositoryImpl) = repository.currencies
 
     @Provides
-    fun provideAbbreviations(repository: CurrenciesRepository) = repository.abbreviations
+    fun provideAbbreviations(repository: CurrenciesRepositoryImpl) = repository.abbreviations
 }

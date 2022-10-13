@@ -25,8 +25,8 @@ class MainActivity : AppCompatActivity() {
         val appBarConfiguration = AppBarConfiguration(setOf(
             R.id.startFragment,
             R.id.currenciesFragment,
-            R.id.thirdFragment,
-            R.id.fourthFragment,
+            R.id.dynamicFragment,
+            R.id.aboutFragment,
             R.id.settingsFragment))
 
         setupActionBarWithNavController(navController, appBarConfiguration)

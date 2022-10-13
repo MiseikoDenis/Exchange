@@ -8,4 +8,11 @@
     <string name="system">Системная</string>
     <string name="light">Светлая</string>
     <string name="dark">Темная</string>
+    <string name="about_app">О приложении</string>
+    <string name="currency_converter">Конвертер валют:</string>
+    <string name="about_text">Данное приложение позволяет быстро конвертировать белорусские рубли в любую другую валюту, курс которой устанавливается Национальным Банком РБ. Также можно посмотреть курс рубля ко всем валютам на сегодня и то как он изменялся за период, не больше года</string>
+    <string name="converter">Конвертер</string>
+    <string name="all_currencies">Все валюты</string>
+    <string name="info">Инфо</string>
+    <string name="settings">Настройки</string>
 </resources>

@@ -6,16 +6,20 @@ import com.example.exchange.presentation.dynamic.DynamicViewModel
 import com.example.exchange.presentation.settings.SettingsFragment
 import com.example.exchange.presentation.start.StartViewModel
 import com.example.exchange.repository.CurrenciesRepository
+import com.example.exchange.repository.CurrenciesRepositoryImpl
+import com.example.exchange.util.di.BindersModule
+import com.example.exchange.util.di.NetworkModule
 import com.example.exchange.util.di.RepositoryModule
+import com.example.exchange.util.di.RoomModule
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [RepositoryModule::class])
+@Component(modules = [RepositoryModule::class, BindersModule::class, RoomModule::class, NetworkModule::class])
 interface AppComponent {
 
-    fun inject(target: CurrenciesRepository)
+    fun inject(target: CurrenciesRepositoryImpl)
     fun inject(target: CurrenciesViewModel)
     fun inject(target: StartViewModel)
     fun inject(target: SettingsFragment)

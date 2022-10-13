@@ -4,26 +4,26 @@
     <item
         android:id="@+id/startFragment"
         android:icon="@drawable/ic_home_black_24dp"
-        android:title="Первый" />
+        android:title="@string/converter" />
 
     <item
         android:id="@+id/currenciesFragment"
         android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="Второй" />
+        android:title="@string/all_currencies" />
 
     <item
-        android:id="@+id/thirdFragment"
+        android:id="@+id/dynamicFragment"
         android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="Третий" />
+        android:title="@string/dynamic" />
 
     <item
-        android:id="@+id/fourthFragment"
+        android:id="@+id/aboutFragment"
         android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="Четвертый" />
+        android:title="@string/info" />
 
     <item
         android:id="@+id/settingsFragment"
         android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="Пятый" />
+        android:title="@string/settings" />
 
 </menu>

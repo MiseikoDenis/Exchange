@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.exchange.R
 import com.example.exchange.api.NetworkDynamic
-import com.example.exchange.models.Currency
 
 class DynamicAdapter : RecyclerView.Adapter<DynamicAdapter.ViewHolder>() {
 
@@ -47,9 +46,8 @@ class DynamicAdapter : RecyclerView.Adapter<DynamicAdapter.ViewHolder>() {
         fun bind(networkDynamic: NetworkDynamic) {
             val date: TextView = itemView.findViewById(R.id.date)
             val rate: TextView = itemView.findViewById(R.id.rate)
-            val dynamic: TextView = itemView.findViewById(R.id.dynamic)
 
-            date.text = networkDynamic.date
+            date.text = networkDynamic.date.substring(0, 10).replace("-",".")
             rate.text = networkDynamic.rate.toString()
         }
     }

@@ -1,45 +1,41 @@
 package com.example.exchange.presentation.dynamic
 
 import android.annotation.SuppressLint
-import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.exchange.api.CurrencyApiService
 import com.example.exchange.api.NetworkDynamic
 import com.example.exchange.models.Currency
-import com.example.exchange.presentation.appComponent
 import com.example.exchange.repository.CurrenciesRepository
+import com.example.exchange.util.Constants.Companion.BASE_DATE
+import com.example.exchange.util.Constants.Companion.BASE_ID
 import kotlinx.coroutines.launch
 import java.io.IOException
 import java.time.LocalDate
-import java.util.Calendar
 import javax.inject.Inject
 
 @SuppressLint("NewApi")
-class DynamicViewModel(application: Application) : ViewModel() {
-
-    @Inject
-    lateinit var currenciesList: LiveData<List<Currency>>
-
-    @Inject
-    lateinit var retrofit: CurrencyApiService
-
-    @Inject
-    lateinit var currencyRepository: CurrenciesRepository
+class DynamicViewModel @Inject constructor(
+    val currenciesList: LiveData<List<Currency>>,
+    val retrofit: CurrencyApiService,
+    val currencyRepository: CurrenciesRepository,
+) : ViewModel() {
 
     private var _dynamicList = MutableLiveData<List<NetworkDynamic>>()
     val dynamicList: LiveData<List<NetworkDynamic>>
         get() = _dynamicList
 
-    private var _id = 0
+    private var _id = BASE_ID
     val id: Int
         get() = _id
 
-    private var _startDate = ""
+    private var _startDate = BASE_DATE
 
-    private var _endDate = ""
+    private var _endDate = BASE_DATE
 
     init {
-        application.appComponent.inject(this)
         _endDate = LocalDate.now().toString()
         _startDate = LocalDate.now().toString()
     }
@@ -48,9 +44,7 @@ class DynamicViewModel(application: Application) : ViewModel() {
         viewModelScope.launch {
             try {
                 _dynamicList.value = currencyRepository.getDynamic(_id, _startDate, _endDate).reversed()
-            } catch (networkError: IOException) {
-
-            }
+            } catch (_: IOException) {}
         }
     }
 
@@ -60,15 +54,5 @@ class DynamicViewModel(application: Application) : ViewModel() {
 
     fun refreshId(id: Int) {
         _id = id
-    }
-
-    class Factory(val app: Application) : ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(DynamicViewModel::class.java)) {
-                @Suppress("UNCHECKED_CAST")
-                return DynamicViewModel(app) as T
-            }
-            throw IllegalArgumentException("Unable to construct viewmodel")
-        }
     }
 }

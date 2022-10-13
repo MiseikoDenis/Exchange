@@ -8,26 +8,26 @@
     <fragment
         android:id="@+id/startFragment"
         android:name="com.example.exchange.presentation.start.StartFragment"
-        android:label="fragment_start"
+        android:label="@string/converter_currency"
         tools:layout="@layout/fragment_start" />
     <fragment
         android:id="@+id/currenciesFragment"
         android:name="com.example.exchange.presentation.currencies.CurrenciesFragment"
-        android:label="fragment_currencies"
+        android:label="@string/currencies_list"
         tools:layout="@layout/fragment_currencies" />
     <fragment
-        android:id="@+id/thirdFragment"
+        android:id="@+id/dynamicFragment"
         android:name="com.example.exchange.presentation.dynamic.DynamicFragment"
-        android:label="fragment_third"
+        android:label="@string/rate_dynamic"
         tools:layout="@layout/fragment_dynamic" />
     <fragment
-        android:id="@+id/fourthFragment"
-        android:name="com.example.exchange.presentation.fourth.FourthFragment"
-        android:label="fragment_fourth"
-        tools:layout="@layout/fragment_fourth" />
+        android:id="@+id/aboutFragment"
+        android:name="com.example.exchange.presentation.fourth.AboutFragment"
+        android:label="@string/about_app"
+        tools:layout="@layout/fragment_about" />
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.exchange.presentation.settings.SettingsFragment"
-        android:label="fragment_fifth"
+        android:label="@string/settings"
         tools:layout="@layout/fragment_settings" />
 </navigation>

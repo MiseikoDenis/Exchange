@@ -6,32 +6,33 @@
 
     <TextView
         android:id="@+id/currency_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="196dp"
+        android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent"
         android:textSize="18sp"
         android:textStyle="bold"
         android:padding="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:gravity="start"
+        app:layout_constraintStart_toStartOf="parent"/>
     
     <TextView
         android:id="@+id/currency_rate"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:padding="8dp"
-        app:layout_constraintTop_toBottomOf="@id/currency_name"
-        app:layout_constraintStart_toStartOf="@+id/currency_name"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:layout_width="80dp"
+        android:layout_height="match_parent"
+        android:textSize="16sp"
+        android:paddingLeft="8dp"
+        app:layout_constraintTop_toTopOf="@+id/currency_name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/currency_name"/>
 
     <TextView
-        android:id="@+id/currency_dynamic"
-        android:padding="16dp"
-        android:textSize="18sp"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:id="@+id/currency_quoteName"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:textSize="8sp"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/currency_rate" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

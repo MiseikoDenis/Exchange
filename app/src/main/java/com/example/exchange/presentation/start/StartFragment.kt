@@ -7,13 +7,19 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.EditText
 import android.widget.Spinner
-import androidx.core.widget.doOnTextChanged
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.example.exchange.R
 import com.example.exchange.databinding.FragmentStartBinding
 import com.example.exchange.models.Currency
+import com.example.exchange.presentation.appComponent
+import com.example.exchange.util.Constants.Companion.BYN_FIELD
+import com.example.exchange.util.Constants.Companion.FIRST_FIELD
+import com.example.exchange.util.Constants.Companion.FOURTH_FIELD
+import com.example.exchange.util.Constants.Companion.SECOND_FIELD
+import com.example.exchange.util.Constants.Companion.THIRD_FIELD
 import com.example.exchange.util.spinner.CustomSpinnerAdapter
+import javax.inject.Inject
 
 
 class StartFragment : Fragment() {
@@ -24,24 +30,22 @@ class StartFragment : Fragment() {
             "View was destroyed"
         }
 
-    private val viewModel: StartViewModel by lazy {
-        val activity = requireNotNull(this.activity) {
-            "You can only access the viewModel after onActivityCreated()"
-        }
-        ViewModelProvider(this, StartViewModel.Factory(activity.application))
-            .get(StartViewModel::class.java)
-    }
+    @Inject
+    lateinit var viewModel: StartViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        activity?.appComponent?.inject(this)
         _binding = FragmentStartBinding.inflate(inflater, container, false)
 
-//        setEditObserver(binding.editByn.editText, 1.0)
-
-        setSpinnerObserver(binding.spinnerFirst, binding.editFirst.editText)
+        setEditTextObserver(binding.textByn.editText)
+        setCurrencyObserver(binding.spinnerFirst, binding.textFirst.editText)
+        setCurrencyObserver(binding.spinnerSecond, binding.textSecond.editText)
+        setCurrencyObserver(binding.spinnerThird, binding.textThird.editText)
+        setCurrencyObserver(binding.spinnerFourth, binding.textFourth.editText)
 
         return binding.root
     }
@@ -51,6 +55,13 @@ class StartFragment : Fragment() {
         _binding = null
     }
 
+    //Устанавливаем связь между спинером и полем с валютой
+    private fun setCurrencyObserver(spinner: Spinner, editText: EditText?) {
+        setSpinnerObserver(spinner, editText)
+        setEditTextObserver(editText)
+    }
+
+    //Устанавливаем обсервер спинера
     private fun setSpinnerObserver(spinner: Spinner, editText: EditText?) {
         viewModel.currenciesList.observe(viewLifecycleOwner) { list ->
             setSpinnerAdapter(spinner, list.sortedBy { it.abbreviation })
@@ -61,33 +72,75 @@ class StartFragment : Fragment() {
                 itemSelected: View?, selectedItemPosition: Int, selectedId: Long
             ) {
                 val item = spinner.selectedItem as Currency
-                setEditObserver(editText, item.rate)
-//                setEditChangeListener(editText, item)
+                updateEditText(editText, item.rate)
+
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {}
         }
     }
 
+
+    //Устанавливаем адаптер для спинера
     private fun setSpinnerAdapter(spinner: Spinner, list: List<Currency>) {
         val adapter = CustomSpinnerAdapter(requireContext(), list)
         spinner.adapter = adapter
         spinner.setSelection(0)
-
     }
 
-    private fun setEditObserver(editText: EditText?, rate: Double) {
-        when(editText?.id){
-            R.id.edit_first -> viewModel.firstCurrencyAmount.observe(viewLifecycleOwner){
+    //Получаем позицию поля для связи с вьюмоделью
+    private fun getEditPosition(editText: EditText?): Int {
+        return when (editText?.id) {
+            R.id.edit_first -> FIRST_FIELD
+            R.id.edit_second -> SECOND_FIELD
+            R.id.edit_third -> THIRD_FIELD
+            R.id.edit_fourth -> FOURTH_FIELD
+            R.id.edit_byn -> BYN_FIELD
+            else -> -1
+        }
+    }
+
+    //Обновляем курс для определенного поля
+    private fun updateEditText(editText: EditText?, rate: Double) {
+        viewModel.updateRate(getEditPosition(editText), rate)
+    }
+
+    //Подписываемся на изменения количества валюты в поле
+    private fun setEditTextObserver(editText: EditText?) {
+        when (editText?.id) {
+            R.id.edit_byn -> viewModel.bynAmount.observe(viewLifecycleOwner) {
+                editText.setText(it.toString())
+            }
+            R.id.edit_first -> viewModel.firstCurrencyAmount.observe(viewLifecycleOwner) {
+                editText.setText(it.toString())
+            }
+            R.id.edit_second -> viewModel.secondCurrencyAmount.observe(viewLifecycleOwner) {
+                editText.setText(it.toString())
+            }
+            R.id.edit_third -> viewModel.thirdCurrencyAmount.observe(viewLifecycleOwner) {
+                editText.setText(it.toString())
+            }
+            R.id.edit_fourth -> viewModel.fourthCurrencyAmount.observe(viewLifecycleOwner) {
                 editText.setText(it.toString())
             }
         }
-        viewModel.updateRate(editText, rate)
+        setEditChangeListener(editText)
     }
 
-    private fun setEditChangeListener(editText: EditText?, currency: Currency) {
-        editText?.doOnTextChanged { text, _, _, _ ->
-            viewModel.updateByn(text.toString().toDouble(), currency)
+    //Устанавливаем слушатель изменения текста в каждом поле
+    private fun setEditChangeListener(editText: EditText?) {
+        editText?.doAfterTextChanged { text ->
+            if(editText.isFocused){
+                try {
+                    val amount = text.toString()
+                    if (amount.length == 2 && amount[0] == '0') {
+                        editText.setText(amount.substring(1))
+                    }
+                    viewModel.updateOtherFields(amount.toDouble(), getEditPosition(editText))
+                } catch (exception: NumberFormatException) {
+                    editText.append("0")
+                }
+            }
         }
     }
 }

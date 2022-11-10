@@ -15,6 +15,7 @@ class CurrencyDatabaseEntityTest {
             abbreviation = "abb",
             dateEnd = "date",
             rate = 1.1,
+            scale = 1,
             quoteName = "quote",
         )
         val listDatabaseEntity = listOf(databaseEntity)
@@ -25,6 +26,7 @@ class CurrencyDatabaseEntityTest {
             abbreviation = "abb",
             dateEnd = "date",
             rate = 1.1,
+            scale = 1,
             quoteName = "quote",
         )
         val listCurrency = listOf(currency)

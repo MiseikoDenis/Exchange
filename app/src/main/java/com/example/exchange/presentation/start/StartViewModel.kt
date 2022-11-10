@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.example.exchange.models.Currency
 import com.example.exchange.repository.CurrenciesRepository
 import com.example.exchange.util.Constants.Companion.BASE_RATE
+import com.example.exchange.util.Constants.Companion.BASE_SCALE
 import com.example.exchange.util.Constants.Companion.BYN_FIELD
 import com.example.exchange.util.Constants.Companion.FIRST_FIELD
 import com.example.exchange.util.Constants.Companion.FOURTH_FIELD
@@ -24,6 +25,11 @@ class StartViewModel @Inject constructor(
     private var secondRate = BASE_RATE
     private var thirdRate = BASE_RATE
     private var fourthRate = BASE_RATE
+
+    private var firstScale = BASE_SCALE
+    private var secondScale = BASE_SCALE
+    private var thirdScale = BASE_SCALE
+    private var fourthScale = BASE_SCALE
 
     private var _bynAmount = MutableLiveData(1.0)
     val bynAmount: LiveData<Double>
@@ -48,12 +54,24 @@ class StartViewModel @Inject constructor(
 
 
     //Обновить курс валюты в определенном поле
-    fun updateRate(id: Int, rate: Double) {
+    fun updateRate(id: Int, rate: Double, scale: Int) {
         when (id) {
-            FIRST_FIELD -> firstRate = rate
-            SECOND_FIELD -> secondRate = rate
-            THIRD_FIELD -> thirdRate = rate
-            FOURTH_FIELD -> fourthRate = rate
+            FIRST_FIELD -> {
+                firstRate = rate
+                firstScale = scale
+            }
+            SECOND_FIELD -> {
+                secondRate = rate
+                secondScale = scale
+            }
+            THIRD_FIELD -> {
+                thirdRate = rate
+                thirdScale = scale
+            }
+            FOURTH_FIELD -> {
+                fourthRate = rate
+                fourthScale = scale
+            }
         }
         updateAmount(id)
     }
@@ -61,10 +79,10 @@ class StartViewModel @Inject constructor(
     //Обновить значение валюты в поле
     private fun updateAmount(id: Int) {
         when (id) {
-            FIRST_FIELD -> _firstCurrencyAmount.value = _bynAmount.value?.times(firstRate)
-            SECOND_FIELD -> _secondCurrencyAmount.value = _bynAmount.value?.times(secondRate)
-            THIRD_FIELD -> _thirdCurrencyAmount.value = _bynAmount.value?.times(thirdRate)
-            FOURTH_FIELD -> _fourthCurrencyAmount.value = _bynAmount.value?.times(fourthRate)
+            FIRST_FIELD -> _firstCurrencyAmount.value = _bynAmount.value?.times((firstScale/firstRate))
+            SECOND_FIELD -> _secondCurrencyAmount.value = _bynAmount.value?.times((secondScale/secondRate))
+            THIRD_FIELD -> _thirdCurrencyAmount.value = _bynAmount.value?.times((thirdScale/thirdRate))
+            FOURTH_FIELD -> _fourthCurrencyAmount.value = _bynAmount.value?.times((fourthScale/fourthRate))
         }
     }
 
@@ -72,34 +90,34 @@ class StartViewModel @Inject constructor(
     fun updateOtherFields(amount: Double, id: Int) {
         when (id) {
             FIRST_FIELD -> {
-                _bynAmount.value = amount / firstRate
+                _bynAmount.value = amount / (firstScale/firstRate)
                 updateAmount(SECOND_FIELD)
                 updateAmount(THIRD_FIELD)
                 updateAmount(FOURTH_FIELD)
             }
             SECOND_FIELD -> {
-                _bynAmount.value = amount / secondRate
+                _bynAmount.value = amount / (secondScale/secondRate)
                 updateAmount(FIRST_FIELD)
                 updateAmount(THIRD_FIELD)
                 updateAmount(FOURTH_FIELD)
             }
             THIRD_FIELD -> {
-                _bynAmount.value = amount / thirdRate
+                _bynAmount.value = amount / (thirdScale/thirdRate)
                 updateAmount(FIRST_FIELD)
                 updateAmount(SECOND_FIELD)
                 updateAmount(FOURTH_FIELD)
             }
             FOURTH_FIELD -> {
-                _bynAmount.value = amount / fourthRate
+                _bynAmount.value = amount / (fourthScale/fourthRate)
                 updateAmount(FIRST_FIELD)
                 updateAmount(SECOND_FIELD)
                 updateAmount(THIRD_FIELD)
             }
             BYN_FIELD -> {
-                _firstCurrencyAmount.value = amount.times(firstRate)
-                _secondCurrencyAmount.value = amount.times(secondRate)
-                _thirdCurrencyAmount.value = amount.times(thirdRate)
-                _fourthCurrencyAmount.value = amount.times(fourthRate)
+                _firstCurrencyAmount.value = amount.times((firstScale/firstRate))
+                _secondCurrencyAmount.value = amount.times((secondScale/secondRate))
+                _thirdCurrencyAmount.value = amount.times((thirdScale/thirdRate))
+                _fourthCurrencyAmount.value = amount.times((fourthScale/fourthRate))
             }
         }
     }

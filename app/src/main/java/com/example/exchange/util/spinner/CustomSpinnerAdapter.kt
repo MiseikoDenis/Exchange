@@ -38,7 +38,7 @@ class CustomSpinnerAdapter(val context: Context, private var dataSource: List<Cu
             view = convertView
             vh = view.tag as ItemHolder
         }
-        vh.label.text = dataSource.get(position).abbreviation
+        vh.label.text = dataSource[position].abbreviation
 
         return view
     }

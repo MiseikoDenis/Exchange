@@ -43,6 +43,7 @@ class CurrenciesRepositoryImpl @Inject constructor(
                     name = it.name,
                     abbreviation = it.abbreviation,
                     dateEnd = it.dateEnd,
+                    scale = it.scale,
                     quoteName = it.quoteName,
                     rate = retrofitService.getExchangeRate(it.id).rate,
                 )

@@ -6,5 +6,6 @@ data class Currency(
     val abbreviation: String,
     val dateEnd: String,
     val rate: Double,
+    val scale: Int,
     val quoteName: String,
 )

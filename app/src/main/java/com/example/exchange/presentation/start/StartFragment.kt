@@ -72,7 +72,7 @@ class StartFragment : Fragment() {
                 itemSelected: View?, selectedItemPosition: Int, selectedId: Long
             ) {
                 val item = spinner.selectedItem as Currency
-                updateEditText(editText, item.rate)
+                updateEditText(editText, item.rate, item.scale)
 
             }
 
@@ -101,8 +101,8 @@ class StartFragment : Fragment() {
     }
 
     //Обновляем курс для определенного поля
-    private fun updateEditText(editText: EditText?, rate: Double) {
-        viewModel.updateRate(getEditPosition(editText), rate)
+    private fun updateEditText(editText: EditText?, rate: Double, scale: Int) {
+        viewModel.updateRate(getEditPosition(editText), rate, scale)
     }
 
     //Подписываемся на изменения количества валюты в поле

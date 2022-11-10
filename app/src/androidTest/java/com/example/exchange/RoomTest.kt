@@ -59,6 +59,7 @@ class RoomTest {
                 dateEnd = "dateEnd",
                 rate = 2.0,
                 abbreviation = "abb",
+                scale = 1,
                 quoteName = "100 quote",
             )
             val list = listOf(currency)

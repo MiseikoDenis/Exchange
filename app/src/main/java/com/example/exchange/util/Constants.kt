@@ -23,8 +23,10 @@ class Constants {
         const val THIRD_FIELD = 3
         const val FOURTH_FIELD = 4
 
-
-
+        const val USD = "USD"
+        const val EUR = "EUR"
+        const val RUB = "RUB"
+        const val PLN = "PLN"
     }
 
 }

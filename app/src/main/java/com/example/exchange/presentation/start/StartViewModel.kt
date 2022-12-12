@@ -13,6 +13,7 @@ import com.example.exchange.util.Constants.Companion.FOURTH_FIELD
 import com.example.exchange.util.Constants.Companion.SECOND_FIELD
 import com.example.exchange.util.Constants.Companion.THIRD_FIELD
 import javax.inject.Inject
+import kotlin.math.roundToInt
 
 
 class StartViewModel @Inject constructor(
@@ -76,13 +77,21 @@ class StartViewModel @Inject constructor(
         updateAmount(id)
     }
 
+    private fun roundOff(num: Double?): Double? {
+        return num?.times(1000)?.roundToInt()?.div(1000.0)
+    }
+
     //Обновить значение валюты в поле
     private fun updateAmount(id: Int) {
         when (id) {
-            FIRST_FIELD -> _firstCurrencyAmount.value = _bynAmount.value?.times((firstScale/firstRate))
-            SECOND_FIELD -> _secondCurrencyAmount.value = _bynAmount.value?.times((secondScale/secondRate))
-            THIRD_FIELD -> _thirdCurrencyAmount.value = _bynAmount.value?.times((thirdScale/thirdRate))
-            FOURTH_FIELD -> _fourthCurrencyAmount.value = _bynAmount.value?.times((fourthScale/fourthRate))
+            FIRST_FIELD -> _firstCurrencyAmount.value =
+                roundOff(_bynAmount.value?.times((firstScale / firstRate)))
+            SECOND_FIELD -> _secondCurrencyAmount.value =
+                roundOff(_bynAmount.value?.times((secondScale / secondRate)))
+            THIRD_FIELD -> _thirdCurrencyAmount.value =
+                roundOff(_bynAmount.value?.times((thirdScale / thirdRate)))
+            FOURTH_FIELD -> _fourthCurrencyAmount.value =
+                roundOff(_bynAmount.value?.times((fourthScale / fourthRate)))
         }
     }
 
@@ -90,34 +99,34 @@ class StartViewModel @Inject constructor(
     fun updateOtherFields(amount: Double, id: Int) {
         when (id) {
             FIRST_FIELD -> {
-                _bynAmount.value = amount / (firstScale/firstRate)
+                _bynAmount.value = roundOff(amount / (firstScale / firstRate))
                 updateAmount(SECOND_FIELD)
                 updateAmount(THIRD_FIELD)
                 updateAmount(FOURTH_FIELD)
             }
             SECOND_FIELD -> {
-                _bynAmount.value = amount / (secondScale/secondRate)
+                _bynAmount.value = roundOff(amount / (secondScale / secondRate))
                 updateAmount(FIRST_FIELD)
                 updateAmount(THIRD_FIELD)
                 updateAmount(FOURTH_FIELD)
             }
             THIRD_FIELD -> {
-                _bynAmount.value = amount / (thirdScale/thirdRate)
+                _bynAmount.value = roundOff(amount / (thirdScale / thirdRate))
                 updateAmount(FIRST_FIELD)
                 updateAmount(SECOND_FIELD)
                 updateAmount(FOURTH_FIELD)
             }
             FOURTH_FIELD -> {
-                _bynAmount.value = amount / (fourthScale/fourthRate)
+                _bynAmount.value = roundOff(amount / (fourthScale / fourthRate))
                 updateAmount(FIRST_FIELD)
                 updateAmount(SECOND_FIELD)
                 updateAmount(THIRD_FIELD)
             }
             BYN_FIELD -> {
-                _firstCurrencyAmount.value = amount.times((firstScale/firstRate))
-                _secondCurrencyAmount.value = amount.times((secondScale/secondRate))
-                _thirdCurrencyAmount.value = amount.times((thirdScale/thirdRate))
-                _fourthCurrencyAmount.value = amount.times((fourthScale/fourthRate))
+                _firstCurrencyAmount.value = roundOff(amount.times((firstScale / firstRate)))
+                _secondCurrencyAmount.value = roundOff(amount.times((secondScale / secondRate)))
+                _thirdCurrencyAmount.value = roundOff(amount.times((thirdScale / thirdRate)))
+                _fourthCurrencyAmount.value = roundOff(amount.times((fourthScale / fourthRate)))
             }
         }
     }

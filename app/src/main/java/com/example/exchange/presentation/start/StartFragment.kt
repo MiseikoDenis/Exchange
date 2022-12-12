@@ -14,10 +14,14 @@ import com.example.exchange.databinding.FragmentStartBinding
 import com.example.exchange.models.Currency
 import com.example.exchange.presentation.appComponent
 import com.example.exchange.util.Constants.Companion.BYN_FIELD
+import com.example.exchange.util.Constants.Companion.EUR
 import com.example.exchange.util.Constants.Companion.FIRST_FIELD
 import com.example.exchange.util.Constants.Companion.FOURTH_FIELD
+import com.example.exchange.util.Constants.Companion.PLN
+import com.example.exchange.util.Constants.Companion.RUB
 import com.example.exchange.util.Constants.Companion.SECOND_FIELD
 import com.example.exchange.util.Constants.Companion.THIRD_FIELD
+import com.example.exchange.util.Constants.Companion.USD
 import com.example.exchange.util.spinner.CustomSpinnerAdapter
 import javax.inject.Inject
 
@@ -42,10 +46,10 @@ class StartFragment : Fragment() {
         _binding = FragmentStartBinding.inflate(inflater, container, false)
 
         setEditTextObserver(binding.textByn.editText)
-        setCurrencyObserver(binding.spinnerFirst, binding.textFirst.editText)
-        setCurrencyObserver(binding.spinnerSecond, binding.textSecond.editText)
-        setCurrencyObserver(binding.spinnerThird, binding.textThird.editText)
-        setCurrencyObserver(binding.spinnerFourth, binding.textFourth.editText)
+        setCurrencyObserver(binding.spinnerFirst, binding.textFirst.editText, USD)
+        setCurrencyObserver(binding.spinnerSecond, binding.textSecond.editText, EUR)
+        setCurrencyObserver(binding.spinnerThird, binding.textThird.editText, PLN)
+        setCurrencyObserver(binding.spinnerFourth, binding.textFourth.editText, RUB)
 
         return binding.root
     }
@@ -56,15 +60,15 @@ class StartFragment : Fragment() {
     }
 
     //Устанавливаем связь между спинером и полем с валютой
-    private fun setCurrencyObserver(spinner: Spinner, editText: EditText?) {
-        setSpinnerObserver(spinner, editText)
+    private fun setCurrencyObserver(spinner: Spinner, editText: EditText?, selection: String) {
+        setSpinnerObserver(spinner, editText, selection)
         setEditTextObserver(editText)
     }
 
     //Устанавливаем обсервер спинера
-    private fun setSpinnerObserver(spinner: Spinner, editText: EditText?) {
+    private fun setSpinnerObserver(spinner: Spinner, editText: EditText?, selection: String) {
         viewModel.currenciesList.observe(viewLifecycleOwner) { list ->
-            setSpinnerAdapter(spinner, list.sortedBy { it.abbreviation })
+            setSpinnerAdapter(spinner, list.sortedBy { it.abbreviation }, selection)
         }
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
@@ -73,7 +77,6 @@ class StartFragment : Fragment() {
             ) {
                 val item = spinner.selectedItem as Currency
                 updateEditText(editText, item.rate, item.scale)
-
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {}
@@ -82,10 +85,10 @@ class StartFragment : Fragment() {
 
 
     //Устанавливаем адаптер для спинера
-    private fun setSpinnerAdapter(spinner: Spinner, list: List<Currency>) {
+    private fun setSpinnerAdapter(spinner: Spinner, list: List<Currency>, selection: String) {
         val adapter = CustomSpinnerAdapter(requireContext(), list)
         spinner.adapter = adapter
-        spinner.setSelection(0)
+        spinner.setSelection(list.indexOf(list.find { it.abbreviation == selection }))
     }
 
     //Получаем позицию поля для связи с вьюмоделью
@@ -130,7 +133,7 @@ class StartFragment : Fragment() {
     //Устанавливаем слушатель изменения текста в каждом поле
     private fun setEditChangeListener(editText: EditText?) {
         editText?.doAfterTextChanged { text ->
-            if(editText.isFocused){
+            if (editText.isFocused) {
                 try {
                     val amount = text.toString()
                     if (amount.length == 2 && amount[0] == '0') {

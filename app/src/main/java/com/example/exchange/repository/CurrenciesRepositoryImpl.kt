@@ -46,6 +46,7 @@ class CurrenciesRepositoryImpl @Inject constructor(
                     scale = it.scale,
                     quoteName = it.quoteName,
                     rate = retrofitService.getExchangeRate(it.id).rate,
+                    nameMulti = it.nameMulti,
                 )
             }
             database.currencyDao.insertAllCurrencies(databaseList)

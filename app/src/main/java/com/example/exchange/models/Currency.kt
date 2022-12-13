@@ -8,4 +8,5 @@ data class Currency(
     val rate: Double,
     val scale: Int,
     val quoteName: String,
+    val nameMulti: String,
 )

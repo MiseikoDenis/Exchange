@@ -45,6 +45,8 @@ class StartFragment : Fragment() {
         activity?.appComponent?.inject(this)
         _binding = FragmentStartBinding.inflate(inflater, container, false)
 
+        viewModel.refreshList()
+
         setEditTextObserver(binding.textByn.editText)
         setCurrencyObserver(binding.spinnerFirst, binding.textFirst.editText, USD)
         setCurrencyObserver(binding.spinnerSecond, binding.textSecond.editText, EUR)
@@ -82,7 +84,6 @@ class StartFragment : Fragment() {
             override fun onNothingSelected(p0: AdapterView<*>?) {}
         }
     }
-
 
     //Устанавливаем адаптер для спинера
     private fun setSpinnerAdapter(spinner: Spinner, list: List<Currency>, selection: String) {

@@ -15,6 +15,7 @@ data class CurrencyDatabaseEntity(
     val rate: Double,
     val scale: Int,
     val quoteName: String,
+    val nameMulti: String,
 )
 
 fun List<CurrencyDatabaseEntity>.asDomainModel(): List<Currency> {
@@ -27,6 +28,7 @@ fun List<CurrencyDatabaseEntity>.asDomainModel(): List<Currency> {
             abbreviation = it.abbreviation,
             scale = it.scale,
             quoteName = it.quoteName,
+            nameMulti = it.nameMulti
         )
     }
 }

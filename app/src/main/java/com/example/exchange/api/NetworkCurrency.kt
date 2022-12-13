@@ -16,4 +16,6 @@ data class NetworkCurrency(
     val scale: Int,
     @Json(name = "Cur_QuotName")
     val quoteName: String,
+    @Json(name = "Cur_NameMulti")
+    val nameMulti: String,
 )

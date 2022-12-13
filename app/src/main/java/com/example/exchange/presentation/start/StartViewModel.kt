@@ -3,6 +3,7 @@ package com.example.exchange.presentation.start
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.exchange.models.Currency
 import com.example.exchange.repository.CurrenciesRepository
 import com.example.exchange.util.Constants.Companion.BASE_RATE
@@ -12,6 +13,7 @@ import com.example.exchange.util.Constants.Companion.FIRST_FIELD
 import com.example.exchange.util.Constants.Companion.FOURTH_FIELD
 import com.example.exchange.util.Constants.Companion.SECOND_FIELD
 import com.example.exchange.util.Constants.Companion.THIRD_FIELD
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
@@ -128,6 +130,12 @@ class StartViewModel @Inject constructor(
                 _thirdCurrencyAmount.value = roundOff(amount.times((thirdScale / thirdRate)))
                 _fourthCurrencyAmount.value = roundOff(amount.times((fourthScale / fourthRate)))
             }
+        }
+    }
+
+    fun refreshList() {
+        viewModelScope.launch {
+            currenciesRepository.refreshCurrencies()
         }
     }
 }

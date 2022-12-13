@@ -83,7 +83,6 @@ class StartFragment : Fragment() {
         }
     }
 
-
     //Устанавливаем адаптер для спинера
     private fun setSpinnerAdapter(spinner: Spinner, list: List<Currency>, selection: String) {
         val adapter = CustomSpinnerAdapter(requireContext(), list)

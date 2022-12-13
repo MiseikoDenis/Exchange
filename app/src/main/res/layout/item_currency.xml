@@ -20,7 +20,7 @@
         android:layout_width="80dp"
         android:layout_height="match_parent"
         android:textSize="16sp"
-        android:paddingLeft="8dp"
+        android:padding="8dp"
         app:layout_constraintTop_toTopOf="@+id/currency_name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/currency_name"/>

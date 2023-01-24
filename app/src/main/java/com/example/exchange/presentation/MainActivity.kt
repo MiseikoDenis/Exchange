@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.getDefaultNightMode())
 
@@ -27,14 +27,19 @@ class MainActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.nav_host_fragment)
 
-        val appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.startFragment,
-            R.id.currenciesFragment,
-            R.id.dynamicFragment,
-            R.id.aboutFragment,
-            R.id.settingsFragment))
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.startFragment,
+                R.id.currenciesFragment,
+                R.id.dynamicFragment,
+                R.id.aboutFragment,
+                R.id.settingsFragment
+            )
+        )
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
+
+
 }

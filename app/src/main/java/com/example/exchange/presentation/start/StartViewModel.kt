@@ -54,7 +54,9 @@ class StartViewModel @Inject constructor(
     val fourthCurrencyAmount: LiveData<Double>
         get() = _fourthCurrencyAmount
 
-
+    init {
+        refreshList()
+    }
 
     //Обновить курс валюты в определенном поле
     fun updateRate(id: Int, rate: Double, scale: Int) {
@@ -133,7 +135,7 @@ class StartViewModel @Inject constructor(
         }
     }
 
-    fun refreshList() {
+    private fun refreshList() {
         viewModelScope.launch {
             currenciesRepository.refreshCurrencies()
         }

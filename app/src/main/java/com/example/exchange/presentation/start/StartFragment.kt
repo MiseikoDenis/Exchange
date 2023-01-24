@@ -45,8 +45,6 @@ class StartFragment : Fragment() {
         activity?.appComponent?.inject(this)
         _binding = FragmentStartBinding.inflate(inflater, container, false)
 
-        viewModel.refreshList()
-
         setEditTextObserver(binding.textByn.editText)
         setCurrencyObserver(binding.spinnerFirst, binding.textFirst.editText, USD)
         setCurrencyObserver(binding.spinnerSecond, binding.textSecond.editText, EUR)

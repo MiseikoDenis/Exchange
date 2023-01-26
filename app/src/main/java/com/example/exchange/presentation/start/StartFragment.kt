@@ -22,6 +22,7 @@ import com.example.exchange.util.Constants.Companion.RUB
 import com.example.exchange.util.Constants.Companion.SECOND_FIELD
 import com.example.exchange.util.Constants.Companion.THIRD_FIELD
 import com.example.exchange.util.Constants.Companion.USD
+import com.example.exchange.util.preference.SharedPreferencesManager
 import com.example.exchange.util.spinner.CustomSpinnerAdapter
 import javax.inject.Inject
 
@@ -36,6 +37,9 @@ class StartFragment : Fragment() {
 
     @Inject
     lateinit var viewModel: StartViewModel
+
+    @Inject
+    lateinit var sharedPreferencesManager: SharedPreferencesManager
 
     override fun onCreateView(
         inflater: LayoutInflater,

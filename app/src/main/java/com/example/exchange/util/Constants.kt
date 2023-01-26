@@ -5,7 +5,6 @@ class Constants {
 
         const val BASE_URL = "https://www.nbrb.by/api/exrates/"
 
-        const val APP_PREFERENCE = "Settings"
         const val APP_THEME_PREFERENCE = "Theme_Settings"
         const val APP_THEME_PREFERENCE_LIGHT = "Theme_Settings_Light"
         const val APP_THEME_PREFERENCE_DARK = "Theme_Settings_Dark"

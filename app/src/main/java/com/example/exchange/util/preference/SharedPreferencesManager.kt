@@ -3,7 +3,6 @@ package com.example.exchange.util.preference
 
 interface SharedPreferencesManager{
 
-    fun setTheme(themeMode: Int, prefsMode: String)
-    fun saveTheme(theme: String)
+    fun setTheme(themeMode: Int)
     fun getSavedTheme(): String?
 }

@@ -29,5 +29,5 @@
     <fragment
         android:id="@+id/settings"
         android:name="com.example.exchange.presentation.settings.Settings"
-        android:label="Settings" />
+        android:label="@string/settings" />
 </navigation>

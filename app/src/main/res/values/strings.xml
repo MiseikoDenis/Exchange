@@ -18,4 +18,6 @@
     <string name="currencies_list">Список валют</string>
     <string name="rate_dynamic">Динамика курса</string>
     <string name="converter_currency">Конвертер валют</string>
+    <string name="set_app_theme">Устанавливает тему приложения</string>
+    <string name="choose_app_theme">Выберите тему приложения</string>
 </resources>

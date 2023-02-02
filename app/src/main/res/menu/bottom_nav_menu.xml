@@ -22,7 +22,7 @@
         android:title="@string/info" />
 
     <item
-        android:id="@+id/settingsFragment"
+        android:id="@+id/settings"
         android:icon="@drawable/settings_24dp"
         android:title="@string/settings" />
 

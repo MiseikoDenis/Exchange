@@ -5,18 +5,19 @@
 Изменения в полях происходят вместе с вводом пользователем суммы.
 Также предоставляется информация о всех валютах, к которым устанавливается курс НБРБ на сегодня.
 
-![photo_4_2022-11-23_10-45-35](https://user-images.githubusercontent.com/68539464/203496352-1dc7a1f5-feed-486b-b30e-60b21f659133.jpg)
-![photo_3_2022-11-23_10-45-35](https://user-images.githubusercontent.com/68539464/203496855-f98c7eaf-33c9-42c6-b69b-4ca875d921d5.jpg)
+![1-1](https://user-images.githubusercontent.com/68539464/216532324-0751b013-e154-48a9-bf78-4ccb8d9270c8.jpg)
+![2-1](https://user-images.githubusercontent.com/68539464/216532344-2d469884-0007-40c4-bbf6-19c93ea2feb3.jpg)
 
 Есть возможность просмотреть динамику курса за определенный период. От даты выбранной пользователем(
 не больше года назад), до сегодня.
 
-![photo_5_2022-11-23_10-45-35](https://user-images.githubusercontent.com/68539464/203497145-4f72188d-9fc1-4ceb-a012-61e470e59acf.jpg)
+![3-1](https://user-images.githubusercontent.com/68539464/216532438-868f638e-efbf-499a-b054-d77025e13c54.jpg)
+![4-1](https://user-images.githubusercontent.com/68539464/216532468-7ca7fef0-4ff7-474e-b972-edd17523da25.jpg)
 
 Также реализовано изменение и сохранение пользователем темы приложения.
 
-![photo_6_2022-11-23_10-45-35](https://user-images.githubusercontent.com/68539464/203497481-5adf25bf-4498-4cac-a5d3-8209f18c3e70.jpg)
-![photo_1_2022-11-23_10-45-35](https://user-images.githubusercontent.com/68539464/203497486-165f6535-4284-4cf9-9da7-8d8b5264abc7.jpg)
+![5-1](https://user-images.githubusercontent.com/68539464/216532571-487678a2-3a90-47cc-b40f-e2d600993eee.jpg)
+![6-1](https://user-images.githubusercontent.com/68539464/216532580-204ab87b-00b4-4275-9757-9dc4fe81feff.jpg)
 
 ## План на будущее
 На текущий момент работаю над добавлением фрагмента с финансовыми новостями.

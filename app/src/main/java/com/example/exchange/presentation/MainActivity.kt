@@ -31,9 +31,7 @@ class MainActivity : AppCompatActivity() {
         baseContext.appComponent.inject(this)
 
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-
         initView()
-
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
         val navController = findNavController(R.id.nav_host_fragment)
